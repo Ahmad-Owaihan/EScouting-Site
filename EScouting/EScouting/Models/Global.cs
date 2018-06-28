@@ -11,6 +11,11 @@ namespace EScouting.Models
     public class Global
     {
         public static string Key = "RGAPI-27f30c63-ed84-4ee3-ac2f-a4b86fab2f06";
+
+        // methods
+
+        // method used to get JSON data from the web and map it to  .net class             source: "https://www.codeproject.com/Tips/397574/Use-Csharp-to-get-JSON-Data-from-the-Web-and-Map-i"
+
         public static T _download_serialized_json_data<T>(string url) where T : new()
         {
             using (var w = new WebClient())
@@ -27,6 +32,7 @@ namespace EScouting.Models
             }
         }
 
+        // method used to get list of countries        source: "https://forums.asp.net/t/2090553.aspx?Creating+a+country+dropdown+list+"
         public static Dictionary<string, string> CountryList()
         {
             //Creating Dictionary
