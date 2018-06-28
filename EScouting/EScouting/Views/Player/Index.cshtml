@@ -1,0 +1,13 @@
+﻿@model IEnumerable<EScouting.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>all Players</h2>
+
+@foreach(var player in Model)
+{
+    <p>@player.Name</p>
+    <p>@player.EPoints</p>
+}
