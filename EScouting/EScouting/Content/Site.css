@@ -1,6 +1,12 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    background-image: url("Images/661fb25fbafe1fce5e806b2806d5cc56.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 /* Set padding to keep content from hitting the edges */

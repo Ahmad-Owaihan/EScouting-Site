@@ -10,7 +10,7 @@ namespace EScouting.Models
 {
     public class Global
     {
-        public static string Key = "RGAPI-27f30c63-ed84-4ee3-ac2f-a4b86fab2f06";
+        public static string Key = "RGAPI-e00418fc-0205-49cb-ab94-541c5a6f74be";
 
         // methods
 
