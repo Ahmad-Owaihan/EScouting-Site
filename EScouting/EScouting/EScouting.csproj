@@ -273,11 +273,13 @@
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Global.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\League.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Matches.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Summoner.cs" />
+    <Compile Include="Models\SummonerViewModel.cs" />
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Models\Validation\CheckPlayerRegion.cs" />
     <Compile Include="Models\Validation\CheckPlayerSummonerName.cs" />
