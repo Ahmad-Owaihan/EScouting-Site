@@ -52,16 +52,25 @@ namespace EScouting.Controllers
 
             var league = Global._download_serialized_json_data_array<League>(leagueUrl);
 
+            //use accountId to get list of matches 
             var matchesUrl = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/"+ summoner.accountId + "?api_key=" + key;
 
             var matches = Global._download_serialized_json_data<PlayerAllMatches>(matchesUrl);
 
+            List<Match> matchesWithStats = new List<Match>();
+            //use matchId to get match results and stats
+            foreach (var match in matches.matches)
+            {
+                var matchesWithStatsUrl = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + match.gameId + "?api_key=" + key;
+                matchesWithStats.Add(Global._download_serialized_json_data<Match>(matchesWithStatsUrl));
+            }
             //view model
             var viewModel = new SummonerViewModel()
             {
                 Summoner = summoner,
                 League = league,
-                Matches = matches
+                Matches = matches,
+                MathesWithStats = matchesWithStats
             };
 
             return View(viewModel);

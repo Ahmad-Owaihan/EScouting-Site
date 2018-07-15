@@ -3,47 +3,56 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    //list for counting champs played
+    var listChampsPlayed = new List<int>();
+
+    //count roles played
     var countMid = 0;
     var countTop = 0;
     var countAdc = 0;
     var countSupport = 0;
     var countJungler = 0;
-    foreach (var match in Model.Matches.matches)
+    if (Model.Matches.matches != null)
     {
-        if (match.lane == "BOTTOM")
+        foreach (var match in Model.Matches.matches)
         {
-            if (match.role == "DUO_SUPPORT")
+            listChampsPlayed.Add(match.champion);
+
+            if (match.lane == "BOTTOM")
+            {
+                if (match.role == "DUO_SUPPORT")
+                {
+                    countSupport++;
+                }
+                if (match.role == "DUO_CARRY")
+                {
+                    countAdc++;
+                }
+            }
+            else if (match.lane == "MID")
+            {
+                countMid++;
+            }
+            else if (match.lane == "TOP")
+            {
+                countTop++;
+            }
+            else if (match.lane == "Jungle")
+            {
+                countJungler++;
+            }
+            else if (match.role == "DUO_SUPPORT")
             {
                 countSupport++;
             }
-            if (match.role == "DUO_CARRY")
+            else if (match.role == "DUO_CARRY")
             {
                 countAdc++;
             }
         }
-        else if (match.role == "DUO_SUPPORT")
-        {
-            countSupport++;
-        }
-        else if (match.role == "DUO_CARRY")
-        {
-            countAdc++;
-        }
-        else if (match.lane == "MID")
-        {
-            countMid++;
-        }
-        else if (match.lane == "TOP")
-        {
-            countTop++;
-        }
-        else if (match.lane == "Jungle")
-        {
-            countJungler++;
-        }
     }
-    List<int> list= new List<int>() { countAdc, countSupport, countJungler, countMid, countTop };
-    var max = list.Max();
+    List<int> listRoles= new List<int>() { countAdc, countSupport, countJungler, countMid, countTop };
+    var max = listRoles.Max();
     var role = "";
     if (max == countAdc)
     {
@@ -69,6 +78,8 @@
     {
         role = "Unknown Role";
     }
+
+    var groupListOfChamps = listChampsPlayed.GroupBy(c => c);
 }
 
 <h2>account id: @Model.Summoner.accountId</h2>
@@ -80,4 +91,18 @@
     <h2>@rank.rank</h2>
 }
 
-<h2>Main role @role</h2>
+@if (Model.Matches.matches != null)
+{
+    <h2>Main role @role </h2>
+
+    foreach (var champ in groupListOfChamps)
+    {
+        <h2>Champ: @champ.Key  games played: @champ.Count()</h2>
+    }
+}
+else
+{
+    <h3>Player is inactive</h3>
+}
+
+

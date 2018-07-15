@@ -268,6 +268,26 @@
     <Compile Include="Migrations\201806231515558_UserCountryProperty.Designer.cs">
       <DependentUpon>201806231515558_UserCountryProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807101040018_ChangeAccountIdInMatchesFromIntToDouble.cs" />
+    <Compile Include="Migrations\201807101040018_ChangeAccountIdInMatchesFromIntToDouble.Designer.cs">
+      <DependentUpon>201807101040018_ChangeAccountIdInMatchesFromIntToDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807101121221_ChangeAccountIdToDouble.cs" />
+    <Compile Include="Migrations\201807101121221_ChangeAccountIdToDouble.Designer.cs">
+      <DependentUpon>201807101121221_ChangeAccountIdToDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807101131345_ChangeAccountIdToLong.cs" />
+    <Compile Include="Migrations\201807101131345_ChangeAccountIdToLong.Designer.cs">
+      <DependentUpon>201807101131345_ChangeAccountIdToLong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807151651433_MatchStatsNeededAddedToDB.cs" />
+    <Compile Include="Migrations\201807151651433_MatchStatsNeededAddedToDB.Designer.cs">
+      <DependentUpon>201807151651433_MatchStatsNeededAddedToDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807151656267_LeagueAddedToDB.cs" />
+    <Compile Include="Migrations\201807151656267_LeagueAddedToDB.Designer.cs">
+      <DependentUpon>201807151656267_LeagueAddedToDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Country.cs" />
@@ -277,6 +297,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Matches.cs" />
+    <Compile Include="Models\MatchStatsNeeded.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Summoner.cs" />
     <Compile Include="Models\SummonerViewModel.cs" />
@@ -420,6 +441,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806231515558_UserCountryProperty.resx">
       <DependentUpon>201806231515558_UserCountryProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807101040018_ChangeAccountIdInMatchesFromIntToDouble.resx">
+      <DependentUpon>201807101040018_ChangeAccountIdInMatchesFromIntToDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807101121221_ChangeAccountIdToDouble.resx">
+      <DependentUpon>201807101121221_ChangeAccountIdToDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807101131345_ChangeAccountIdToLong.resx">
+      <DependentUpon>201807101131345_ChangeAccountIdToLong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807151651433_MatchStatsNeededAddedToDB.resx">
+      <DependentUpon>201807151651433_MatchStatsNeededAddedToDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807151656267_LeagueAddedToDB.resx">
+      <DependentUpon>201807151656267_LeagueAddedToDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

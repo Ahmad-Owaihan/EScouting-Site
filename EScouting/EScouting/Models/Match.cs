@@ -40,10 +40,10 @@ namespace EScouting.Models
         public string summonerName { get; set; }
         public string matchHistoryUri { get; set; }
         public string platformId { get; set; }
-        public int currentAccountId { get; set; }
+        public long currentAccountId { get; set; }
         public int profileIcon { get; set; }
         public int summonerId { get; set; }
-        public int accountId { get; set; }
+        public long accountId { get; set; }
     }
 
     public class Team

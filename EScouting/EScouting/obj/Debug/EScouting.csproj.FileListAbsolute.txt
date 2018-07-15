@@ -256,3 +256,8 @@ C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScout
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.csproj.CoreCompileInputs.cache
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.dll
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.pdb
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.ChangeAccountIdInMatchesFromIntToDouble.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.ChangeAccountIdToDouble.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.ChangeAccountIdToLong.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.MatchStatsNeededAddedToDB.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.LeagueAddedToDB.resources

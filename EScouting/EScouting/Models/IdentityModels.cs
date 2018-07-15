@@ -37,8 +37,6 @@ namespace EScouting.Models
         [Display(Name ="Summoner Name")]
         public string SummonerName { get; set; }
 
-        public int AccountId { get; set; }
-
         public IEnumerable<Match> Matches { get; set; }
 
         public float EPoints { get; set; }
@@ -54,6 +52,8 @@ namespace EScouting.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<League> Leagues { get; set; }
+        public DbSet<MatchStatsNeeded> MatchStatsNeeded { get; set; }
         public DbSet<Match> Matches { get; set; }
         public DbSet<Participantidentity> ParticipantIdentities { get; set; }
         public DbSet<Player> Players { get; set; }

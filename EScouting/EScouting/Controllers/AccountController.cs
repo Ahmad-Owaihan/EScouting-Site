@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using EScouting.Models;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 
 namespace EScouting.Controllers
 {
@@ -175,10 +177,77 @@ namespace EScouting.Controllers
                 var key = Global.Key;
                 var region = regionInDb.Value;
 
+                //use summoner name to access accountId and SummonerId 
                 var url = "https://" + region + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + model.user.SummonerName + "?api_key=" + key;
 
                 var summoner = Global._download_serialized_json_data<Summoner>(url);
 
+                //use summonerId to get Solo queue rank and Flexed rank
+                var leagueUrl = "https://" + region + ".api.riotgames.com/lol/league/v3/positions/by-summoner/" + summoner.id + "?api_key=" + key;
+
+                var league = Global._download_serialized_json_data_array<League>(leagueUrl);
+
+                //use accountId to get list of matches 
+                var matchesUrl = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + summoner.accountId + "?api_key=" + key;
+
+                var matches = Global._download_serialized_json_data<PlayerAllMatches>(matchesUrl);
+
+                //save all matches and their stats
+                List<Match> matchesWithAllStats = new List<Match>();
+
+                //use matchId to get match results and stats
+                if (matches.matches != null)
+                {
+                    foreach (var match in matches.matches)
+                    {
+                        var matchesWithStatsUrl = "https://" + region + ".api.riotgames.com/lol/match/v3/matche/" + match.gameId + "?api_key=" + key;
+                        var urlLink = Global._download_serialized_json_data<Match>(matchesWithStatsUrl);
+                        if (urlLink != null && urlLink.participants != null)
+                            matchesWithAllStats.Add(urlLink);
+                    }
+                }
+                //get the stats I need for each game of current player
+                var matchWithStats = new List<MatchStatsNeeded>();
+                foreach (var match in matchesWithAllStats)
+                {
+                    Participantidentity participantIdentity;
+                    try
+                    {
+                        participantIdentity = match.participantIdentities.SingleOrDefault(p => p.player.currentAccountId == summoner.accountId);
+                        var participant = match.participants.SingleOrDefault(p => p.participantId == participantIdentity.participantId);
+                        var playerStats = participant.stats;
+                        var matchStats = new MatchStatsNeeded()
+                        {
+                            MatchId = match.gameId,
+                            AccountId = summoner.accountId,
+                            ChampionId = participant.championId,
+                            Kills = playerStats.kills,
+                            Deaths = playerStats.deaths,
+                            Assists = playerStats.assists,
+                            TotalMinionsKilled = playerStats.totalMinionsKilled,
+                            VisionScore = playerStats.visionScore
+                        };
+                        matchWithStats.Add(matchStats);
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+                        foreach (var eve in e.EntityValidationErrors)
+                        {
+                            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                            foreach (var ve in eve.ValidationErrors)
+                            {
+                                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                    ve.PropertyName, ve.ErrorMessage);
+                            }
+                        }
+                        throw;
+                    }
+
+                }
+
+
+                //get match history
                 var user = new ApplicationUser {
                     UserName = model.Email,
                     Email = model.Email,
@@ -187,7 +256,6 @@ namespace EScouting.Controllers
                     UserTypeId = userTypeInDb.Id,
                     CountryId = countryInDb.Id,
                     SummonerName = model.user.SummonerName,
-                    AccountId = summoner.accountId
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
