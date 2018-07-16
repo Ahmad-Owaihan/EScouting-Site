@@ -288,6 +288,18 @@
     <Compile Include="Migrations\201807151656267_LeagueAddedToDB.Designer.cs">
       <DependentUpon>201807151656267_LeagueAddedToDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807160121577_RankedStatsAddedtoDB.cs" />
+    <Compile Include="Migrations\201807160121577_RankedStatsAddedtoDB.Designer.cs">
+      <DependentUpon>201807160121577_RankedStatsAddedtoDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807160127554_ChangeRankedStatsPlayerIdToString.cs" />
+    <Compile Include="Migrations\201807160127554_ChangeRankedStatsPlayerIdToString.Designer.cs">
+      <DependentUpon>201807160127554_ChangeRankedStatsPlayerIdToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807160137251_DeleteLeagueTableWhichDoesNotExist.cs" />
+    <Compile Include="Migrations\201807160137251_DeleteLeagueTableWhichDoesNotExist.Designer.cs">
+      <DependentUpon>201807160137251_DeleteLeagueTableWhichDoesNotExist.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Country.cs" />
@@ -298,6 +310,7 @@
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Matches.cs" />
     <Compile Include="Models\MatchStatsNeeded.cs" />
+    <Compile Include="Models\RankedStats.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Summoner.cs" />
     <Compile Include="Models\SummonerViewModel.cs" />
@@ -456,6 +469,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807151656267_LeagueAddedToDB.resx">
       <DependentUpon>201807151656267_LeagueAddedToDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807160121577_RankedStatsAddedtoDB.resx">
+      <DependentUpon>201807160121577_RankedStatsAddedtoDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807160127554_ChangeRankedStatsPlayerIdToString.resx">
+      <DependentUpon>201807160127554_ChangeRankedStatsPlayerIdToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807160137251_DeleteLeagueTableWhichDoesNotExist.resx">
+      <DependentUpon>201807160137251_DeleteLeagueTableWhichDoesNotExist.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

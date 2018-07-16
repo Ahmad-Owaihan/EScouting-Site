@@ -261,3 +261,6 @@ C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScout
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.ChangeAccountIdToLong.resources
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.MatchStatsNeededAddedToDB.resources
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.LeagueAddedToDB.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.RankedStatsAddedtoDB.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.ChangeRankedStatsPlayerIdToString.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.DeleteLeagueTableWhichDoesNotExist.resources

@@ -193,46 +193,54 @@ namespace EScouting.Controllers
                 var league = Global._download_serialized_json_data_array<League>(leagueUrl);
                 foreach (var l in league)
                 {
-                    _context.Leagues.Add(l);
+                    _context.RankedStats.Add(new RankedStats()
+                    {
+                        QueueType = l.queueType,
+                        Wins = l.wins,
+                        Losses = l.losses,
+                        Rank = l.rank,
+                        LeagueId = l.leagueId,
+                        Tier = l.tier,
+                        LeaguePoints = l.leaguePoints,
+                        PlayerOrTeamId = l.playerOrTeamId
+                    });
                 }
-                _context.SaveChanges();
 
                 //store all matches and all their stats
                 List<Match> matchesWithAllStats = new List<Match>();
 
                 //use matchId to get match results and stats
-                //if (matches.matches != null)
-                //{
-                //    foreach (var match in matches.matches)
-                //    {
-                //        var matchesWithStatsUrl = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + match.gameId + "?api_key=" + key;
-                //        var urlLink = Global._download_serialized_json_data<Match>(matchesWithStatsUrl);
-                //        if (urlLink != null && urlLink.participants != null)
-                //            matchesWithAllStats.Add(urlLink);
-                //    }
-                //}
-                //get the stats I need for each game for current player
-                //foreach (var match in matchesWithAllStats)
-                //{
-                //    var participantIdentity = match.participantIdentities.SingleOrDefault(p => p.player.currentAccountId == summoner.accountId);
-                //    var participant = match.participants.SingleOrDefault(p => p.participantId == participantIdentity.participantId);
-                //    var playerStats = participant.stats;
-                //    var matchStats = new MatchStatsNeeded()
-                //    {
-                //        MatchId = match.gameId,
-                //        AccountId = summoner.accountId,
-                //        ChampionId = participant.championId,
-                //        Kills = playerStats.kills,
-                //        Deaths = playerStats.deaths,
-                //        Assists = playerStats.assists,
-                //        TotalMinionsKilled = playerStats.totalMinionsKilled,
-                //        VisionScore = playerStats.visionScore
-                //    };
-                //    _context.MatchStatsNeeded.Add(matchStats);
-                //    _context.SaveChanges();
-                //}
+                if (matches.matches != null)
+                {
+                    var li = matches.matches.ToList();
 
-                
+                    //use Parallel for performance
+                    var allMatches = new List<MatchStatsNeeded>();
+                    Parallel.ForEach(li, x =>
+                   {
+                       var matchesWithStatsUrl = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + x.gameId + "?api_key=" + key;
+                       var urlLink = Global._download_serialized_json_data<Match>(matchesWithStatsUrl);
+                       if (urlLink != null && urlLink.participants != null)
+                       {
+                           var participantIdentity = urlLink.participantIdentities.SingleOrDefault(p => p.player.currentAccountId == summoner.accountId);
+                           var participant = urlLink.participants.SingleOrDefault(p => p.participantId == participantIdentity.participantId);
+                           var playerStats = participant.stats;
+
+                           var matchStats = new MatchStatsNeeded()
+                           {
+                               MatchId = urlLink.gameId,
+                               AccountId = summoner.accountId,
+                               ChampionId = participant.championId,
+                               Kills = playerStats.kills,
+                               Deaths = playerStats.deaths,
+                               Assists = playerStats.assists,
+                               TotalMinionsKilled = playerStats.totalMinionsKilled,
+                               VisionScore = playerStats.visionScore
+                           };
+                           allMatches.Add(matchStats);
+                       }
+                   });
+                }
 
                 var user = new ApplicationUser {
                     UserName = model.Email,
