@@ -23,6 +23,7 @@ namespace EScouting.Models.Validation
             if (user.UserTypeId == UserType.Coach)
                 return ValidationResult.Success;
 
+            //else user is a player
             if (user.SummonerName == null)
                 return new ValidationResult("Please Insert your Summoner Name");
 
@@ -46,6 +47,11 @@ namespace EScouting.Models.Validation
             // if region is not selected
             if (summoner.id == 0)
                 return new ValidationResult("please pick a region/server");
+
+            //if user exists in region
+            var users = _context.Users.ToList().Where(u => u.SummonerName == user.SummonerName && u.RegionId == user.RegionId);
+            if (users.Count() >= 1)
+                return new ValidationResult("Summoner already exists in this site.");
 
             // all went well
             return ValidationResult.Success;

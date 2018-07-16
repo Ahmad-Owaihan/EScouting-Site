@@ -7,6 +7,10 @@ namespace EScouting.Models
 {
     public class League
     {
+        public League()
+        {
+            miniSeries = new Miniseries();
+        }
         public string queueType { get; set; }
         public bool hotStreak { get; set; }
         public Miniseries miniSeries { get; set; }
