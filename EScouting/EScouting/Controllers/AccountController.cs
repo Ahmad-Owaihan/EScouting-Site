@@ -162,93 +162,15 @@ namespace EScouting.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userTypeInDb = _context.UserTypes.Single(u => u.Id == model.user.UserTypeId);
-                var countryInDb = _context.Countries.Single(c => c.Id == model.user.CountryId);
-                var regionInDb = new Region();
-                if (model.user.UserTypeId == UserType.Player)
-                {
-                    regionInDb = _context.Regions.Single(u => u.Id == model.user.RegionId);
-                }
-                else
-                {
-                    regionInDb = new Region { Id = 1 };
-                }
-
-                var key = Global.Key;
-                var region = regionInDb.Value;
-
-                //use summoner name to access accountId and SummonerId 
-                var url = "https://" + region + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + model.user.SummonerName + "?api_key=" + key;
-
-                var summoner = Global._download_serialized_json_data<Summoner>(url);
-
-                //use accountId to get list of matches 
-                var matchesUrl = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + summoner.accountId + "?api_key=" + key;
-
-                var matches = Global._download_serialized_json_data<PlayerAllMatches>(matchesUrl);
-
-                //use summonerId to get Solo queue rank and Flexed rank
-                var leagueUrl = "https://" + region + ".api.riotgames.com/lol/league/v3/positions/by-summoner/" + summoner.id + "?api_key=" + key;
-
-                var league = Global._download_serialized_json_data_array<League>(leagueUrl);
-                foreach (var l in league)
-                {
-                    _context.RankedStats.Add(new RankedStats()
-                    {
-                        QueueType = l.queueType,
-                        Wins = l.wins,
-                        Losses = l.losses,
-                        Rank = l.rank,
-                        LeagueId = l.leagueId,
-                        Tier = l.tier,
-                        LeaguePoints = l.leaguePoints,
-                        PlayerOrTeamId = l.playerOrTeamId
-                    });
-                }
-
-                //store all matches and all their stats
-                List<Match> matchesWithAllStats = new List<Match>();
-
-                //use matchId to get match results and stats
-                if (matches.matches != null)
-                {
-                    var li = matches.matches.ToList();
-
-                    //use Parallel for performance
-                    var allMatches = new List<MatchStatsNeeded>();
-                    Parallel.ForEach(li, x =>
-                   {
-                       var matchesWithStatsUrl = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + x.gameId + "?api_key=" + key;
-                       var urlLink = Global._download_serialized_json_data<Match>(matchesWithStatsUrl);
-                       if (urlLink != null && urlLink.participants != null)
-                       {
-                           var participantIdentity = urlLink.participantIdentities.SingleOrDefault(p => p.player.currentAccountId == summoner.accountId);
-                           var participant = urlLink.participants.SingleOrDefault(p => p.participantId == participantIdentity.participantId);
-                           var playerStats = participant.stats;
-
-                           var matchStats = new MatchStatsNeeded()
-                           {
-                               MatchId = urlLink.gameId,
-                               AccountId = summoner.accountId,
-                               ChampionId = participant.championId,
-                               Kills = playerStats.kills,
-                               Deaths = playerStats.deaths,
-                               Assists = playerStats.assists,
-                               TotalMinionsKilled = playerStats.totalMinionsKilled,
-                               VisionScore = playerStats.visionScore
-                           };
-                           allMatches.Add(matchStats);
-                       }
-                   });
-                }
+                
 
                 var user = new ApplicationUser {
                     UserName = model.Email,
                     Email = model.Email,
                     Name = model.user.Name,
-                    RegionId = regionInDb.Id,
-                    UserTypeId = userTypeInDb.Id,
-                    CountryId = countryInDb.Id,
+                    RegionId = model.user.RegionId,
+                    UserTypeId = model.user.UserTypeId,
+                    CountryId = model.user.CountryId,
                     SummonerName = model.user.SummonerName,
                 };
 
@@ -263,6 +185,8 @@ namespace EScouting.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    Global.AddStats(_context, model);
 
                     return RedirectToAction("Index", "Home");
                 }
