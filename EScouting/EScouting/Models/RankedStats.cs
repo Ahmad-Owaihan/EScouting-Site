@@ -15,6 +15,6 @@ namespace EScouting.Models
         public string LeagueId { get; set; }
         public string Tier { get; set; }
         public int LeaguePoints { get; set; }
-        public string PlayerOrTeamId { get; set; }
+        public string UserId { get; set; }
     }
 }

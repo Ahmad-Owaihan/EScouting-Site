@@ -148,7 +148,8 @@ namespace EScouting.Controllers
             {
                 Regions = _context.Regions.ToList(),
                 UserTypes = _context.UserTypes.ToList(),
-                Counties = GetAllCountries().ToList()
+                Counties = GetAllCountries().ToList(),
+                Roles = _context.Roles.ToList()
             };
             return View(viewModel);
         }
@@ -162,8 +163,6 @@ namespace EScouting.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-
                 var user = new ApplicationUser {
                     UserName = model.Email,
                     Email = model.Email,
@@ -171,6 +170,7 @@ namespace EScouting.Controllers
                     RegionId = model.user.RegionId,
                     UserTypeId = model.user.UserTypeId,
                     CountryId = model.user.CountryId,
+                    RoleId = model.user.RoleId,
                     SummonerName = model.user.SummonerName,
                 };
 
@@ -186,7 +186,7 @@ namespace EScouting.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    Global.AddStats(_context, model);
+                    Global.AddStats(_context, model, user);
 
                     return RedirectToAction("Index", "Home");
                 }

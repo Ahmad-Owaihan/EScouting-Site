@@ -82,6 +82,8 @@ namespace EScouting.Models
 
         public IEnumerable<Country> Counties { get; set; }
 
+        public IEnumerable<Role> Roles { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

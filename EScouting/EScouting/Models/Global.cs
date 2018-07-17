@@ -73,7 +73,7 @@ namespace EScouting.Models
             return cultureList;
         }
 
-        public static void AddStats(ApplicationDbContext _context, RegisterViewModel model)
+        public static void AddStats(ApplicationDbContext _context, RegisterViewModel model, ApplicationUser user)
         {
             var userTypeInDb = _context.UserTypes.Single(u => u.Id == model.user.UserTypeId);
             var countryInDb = _context.Countries.Single(c => c.Id == model.user.CountryId);
@@ -115,7 +115,7 @@ namespace EScouting.Models
                     LeagueId = l.leagueId,
                     Tier = l.tier,
                     LeaguePoints = l.leaguePoints,
-                    PlayerOrTeamId = l.playerOrTeamId
+                    UserId = user.Id
                 });
             }
 
@@ -140,13 +140,13 @@ namespace EScouting.Models
                         var matchStats = new MatchStatsNeeded()
                         {
                             MatchId = match.gameId,
-                            AccountId = summoner.accountId,
+                            UserId = model.user.Id,
                             ChampionId = participant.championId,
                             Kills = playerStats.kills,
                             Deaths = playerStats.deaths,
                             Assists = playerStats.assists,
                             TotalMinionsKilled = playerStats.totalMinionsKilled,
-                            VisionScore = playerStats.visionScore
+                            VisionScore = playerStats.visionScore,
                         };
                         try
                         {

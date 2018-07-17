@@ -7,9 +7,10 @@ namespace EScouting.Models
 {
     public class SummonerViewModel
     {
-        public Summoner Summoner { get; set; }
-        public List<League> League { get; set; }
-        public PlayerAllMatches Matches { get; set; }
-        public List<Match> MathesWithStats { get; set; }
+        public string MainRole { get; set; }
+        public string SummonerName { get; set; }
+        public RankedStats SoloQueue { get; set; }
+        public RankedStats FlexQueue { get; set; }
+        public List<MatchStatsNeeded> matches { get; set; }
     }
 }

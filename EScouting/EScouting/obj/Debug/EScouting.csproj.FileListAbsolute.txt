@@ -264,3 +264,8 @@ C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScout
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.RankedStatsAddedtoDB.resources
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.ChangeRankedStatsPlayerIdToString.resources
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.DeleteLeagueTableWhichDoesNotExist.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.AddedUserIdToRankedStats.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.AddUserIdToMatchStatsNeeded.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.AddRoleToUser.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.PopulateUserRoles.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.ChangeRoleIdFromStringToInt.resources

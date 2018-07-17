@@ -33,44 +33,25 @@ namespace EScouting.Controllers
 
         public ActionResult Details(string id)
         {
-            var user = _context.Users.Include(u => u.Region).SingleOrDefault(u => u.Id == id);
-
+            var user = _context.Users.SingleOrDefault(u => u.Id == id);
             if (user == null)
                 return HttpNotFound();
 
-            var key = Global.Key;
-            var regionObj = _context.Regions.Single(r => r.Id == user.RegionId);
-            var region = regionObj.Value;
+            var soloQueue = _context.RankedStats.SingleOrDefault(r => r.UserId == id && r.QueueType == "RANKED_SOLO_5x5");
+            var flexQueue = _context.RankedStats.SingleOrDefault(r => r.UserId == id && r.QueueType == "RANKED_FLEX_SR");
 
-            //use summoner name to access accountId and SummonerId
-            var summonerUrl = "https://" + region + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + user.SummonerName + "?api_key=" + key;
 
-            var summoner = Global._download_serialized_json_data<Summoner>(summonerUrl);
+            var matches = _context.MatchStatsNeeded.Where(m => m.UserId == id).ToList();
 
-            //use summonerId to get League information such as Solo queue rank and Flexed rank
-            var leagueUrl = "https://" + region + ".api.riotgames.com/lol/league/v3/positions/by-summoner/" + summoner.id + "?api_key=" + key;
-
-            var league = Global._download_serialized_json_data_array<League>(leagueUrl);
-
-            //use accountId to get list of matches 
-            var matchesUrl = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/"+ summoner.accountId + "?api_key=" + key;
-
-            var matches = Global._download_serialized_json_data<PlayerAllMatches>(matchesUrl);
-
-            List<Match> matchesWithStats = new List<Match>();
-            //use matchId to get match results and stats
-            foreach (var match in matches.matches)
-            {
-                var matchesWithStatsUrl = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + match.gameId + "?api_key=" + key;
-                matchesWithStats.Add(Global._download_serialized_json_data<Match>(matchesWithStatsUrl));
-            }
+            var mainRole = _context.Roles.SingleOrDefault(r => r.Id == user.RoleId);
             //view model
             var viewModel = new SummonerViewModel()
             {
-                Summoner = summoner,
-                League = league,
-                Matches = matches,
-                MathesWithStats = matchesWithStats
+                SummonerName = user.SummonerName,
+                SoloQueue = soloQueue,
+                FlexQueue = flexQueue,
+                matches = matches,
+                MainRole = mainRole.Name
             };
 
             return View(viewModel);

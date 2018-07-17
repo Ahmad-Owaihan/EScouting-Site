@@ -29,6 +29,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    @Html.LabelFor(m => m.user.RoleId, new { @class = "col-2 control-label if-player" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(p => p.user.RoleId, new SelectList(Model.Roles, "Id", "Name"), "....", new { @class = "form-control if-player" })
+                    </div>
+                </div>
+                <div class="form-group">
                     @Html.LabelFor(m => m.user.CountryId, new { @class = "col-2 control-label" })
                     <div class="col-md-10">
                         @Html.DropDownListFor(p => p.user.CountryId, new SelectList(Model.Counties, "Id", "Name"), "....", new { @class = "form-control"})

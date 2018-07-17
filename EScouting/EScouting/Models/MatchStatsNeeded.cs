@@ -9,7 +9,7 @@ namespace EScouting.Models
     {
         public int Id { get; set; }
         public long MatchId { get; set; }
-        public long AccountId { get; set; }
+        public string UserId { get; set; }
         public int ChampionId { get; set; }
         public int Kills { get; set; }
         public int Deaths { get; set; }

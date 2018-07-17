@@ -18,6 +18,11 @@ namespace EScouting.Models
         [Display(Name = "User Type")]
         public UserType UserType { get; set; }
 
+        public Role Role { get; set; }
+
+        [Display(Name="Main Role")]
+        public int RoleId { get; set; }
+
         [Display(Name= "Type of User")]
         public int UserTypeId { get; set; }
 
@@ -52,6 +57,7 @@ namespace EScouting.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Role> Roles { get; set; }
         public DbSet<RankedStats> RankedStats { get; set; }
         public DbSet<MatchStatsNeeded> MatchStatsNeeded { get; set; }
         public DbSet<Match> Matches { get; set; }
