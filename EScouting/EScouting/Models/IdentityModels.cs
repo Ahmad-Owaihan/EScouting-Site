@@ -57,6 +57,7 @@ namespace EScouting.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Champion> Champions { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<RankedStats> RankedStats { get; set; }
         public DbSet<MatchStatsNeeded> MatchStatsNeeded { get; set; }

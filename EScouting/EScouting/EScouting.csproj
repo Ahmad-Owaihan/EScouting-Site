@@ -320,8 +320,17 @@
     <Compile Include="Migrations\201807172316160_ChangeRoleIdFromStringToInt.Designer.cs">
       <DependentUpon>201807172316160_ChangeRoleIdFromStringToInt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807180209091_addedChampionToDatabase.cs" />
+    <Compile Include="Migrations\201807180209091_addedChampionToDatabase.Designer.cs">
+      <DependentUpon>201807180209091_addedChampionToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807180209406_PopulateChampions.cs" />
+    <Compile Include="Migrations\201807180209406_PopulateChampions.Designer.cs">
+      <DependentUpon>201807180209406_PopulateChampions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Champion.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Global.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -345,6 +354,140 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\661fb25fbafe1fce5e806b2806d5cc56.jpg" />
+    <Content Include="Content\Images\ChampionIcons\Aatrox.png" />
+    <Content Include="Content\Images\ChampionIcons\Ahri.png" />
+    <Content Include="Content\Images\ChampionIcons\Akali.png" />
+    <Content Include="Content\Images\ChampionIcons\Alistar.png" />
+    <Content Include="Content\Images\ChampionIcons\Amumu.png" />
+    <Content Include="Content\Images\ChampionIcons\Anivia.png" />
+    <Content Include="Content\Images\ChampionIcons\Annie.png" />
+    <Content Include="Content\Images\ChampionIcons\Ashe.png" />
+    <Content Include="Content\Images\ChampionIcons\AurelionSol.png" />
+    <Content Include="Content\Images\ChampionIcons\Azir.png" />
+    <Content Include="Content\Images\ChampionIcons\Bard.png" />
+    <Content Include="Content\Images\ChampionIcons\Blitzcrank.png" />
+    <Content Include="Content\Images\ChampionIcons\Brand.png" />
+    <Content Include="Content\Images\ChampionIcons\Braum.png" />
+    <Content Include="Content\Images\ChampionIcons\Caitlyn.png" />
+    <Content Include="Content\Images\ChampionIcons\Camille.png" />
+    <Content Include="Content\Images\ChampionIcons\Cassiopeia.png" />
+    <Content Include="Content\Images\ChampionIcons\Chogath.png" />
+    <Content Include="Content\Images\ChampionIcons\Corki.png" />
+    <Content Include="Content\Images\ChampionIcons\Darius.png" />
+    <Content Include="Content\Images\ChampionIcons\Diana.png" />
+    <Content Include="Content\Images\ChampionIcons\Draven.png" />
+    <Content Include="Content\Images\ChampionIcons\DrMundo.png" />
+    <Content Include="Content\Images\ChampionIcons\Ekko.png" />
+    <Content Include="Content\Images\ChampionIcons\Elise.png" />
+    <Content Include="Content\Images\ChampionIcons\Evelynn.png" />
+    <Content Include="Content\Images\ChampionIcons\Ezreal.png" />
+    <Content Include="Content\Images\ChampionIcons\FiddleSticks.png" />
+    <Content Include="Content\Images\ChampionIcons\Fiora.png" />
+    <Content Include="Content\Images\ChampionIcons\Fizz.png" />
+    <Content Include="Content\Images\ChampionIcons\Galio.png" />
+    <Content Include="Content\Images\ChampionIcons\Gangplank.png" />
+    <Content Include="Content\Images\ChampionIcons\Garen.png" />
+    <Content Include="Content\Images\ChampionIcons\Gnar.png" />
+    <Content Include="Content\Images\ChampionIcons\Gragas.png" />
+    <Content Include="Content\Images\ChampionIcons\Graves.png" />
+    <Content Include="Content\Images\ChampionIcons\Hecarim.png" />
+    <Content Include="Content\Images\ChampionIcons\Heimerdinger.png" />
+    <Content Include="Content\Images\ChampionIcons\Illaoi.png" />
+    <Content Include="Content\Images\ChampionIcons\Irelia.png" />
+    <Content Include="Content\Images\ChampionIcons\Ivern.png" />
+    <Content Include="Content\Images\ChampionIcons\Janna.png" />
+    <Content Include="Content\Images\ChampionIcons\JarvanIV.png" />
+    <Content Include="Content\Images\ChampionIcons\Jax.png" />
+    <Content Include="Content\Images\ChampionIcons\Jayce.png" />
+    <Content Include="Content\Images\ChampionIcons\Jhin.png" />
+    <Content Include="Content\Images\ChampionIcons\Jinx.png" />
+    <Content Include="Content\Images\ChampionIcons\Kalista.png" />
+    <Content Include="Content\Images\ChampionIcons\Karma.png" />
+    <Content Include="Content\Images\ChampionIcons\Karthus.png" />
+    <Content Include="Content\Images\ChampionIcons\Kassadin.png" />
+    <Content Include="Content\Images\ChampionIcons\Katarina.png" />
+    <Content Include="Content\Images\ChampionIcons\Kayle.png" />
+    <Content Include="Content\Images\ChampionIcons\Kennen.png" />
+    <Content Include="Content\Images\ChampionIcons\Khazix.png" />
+    <Content Include="Content\Images\ChampionIcons\Kindred.png" />
+    <Content Include="Content\Images\ChampionIcons\Kled.png" />
+    <Content Include="Content\Images\ChampionIcons\KogMaw.png" />
+    <Content Include="Content\Images\ChampionIcons\Leblanc.png" />
+    <Content Include="Content\Images\ChampionIcons\LeeSin.png" />
+    <Content Include="Content\Images\ChampionIcons\Leona.png" />
+    <Content Include="Content\Images\ChampionIcons\Lissandra.png" />
+    <Content Include="Content\Images\ChampionIcons\Lucian.png" />
+    <Content Include="Content\Images\ChampionIcons\Lulu.png" />
+    <Content Include="Content\Images\ChampionIcons\Lux.png" />
+    <Content Include="Content\Images\ChampionIcons\Malphite.png" />
+    <Content Include="Content\Images\ChampionIcons\Malzahar.png" />
+    <Content Include="Content\Images\ChampionIcons\Maokai.png" />
+    <Content Include="Content\Images\ChampionIcons\MasterYi.png" />
+    <Content Include="Content\Images\ChampionIcons\MissFortune.png" />
+    <Content Include="Content\Images\ChampionIcons\MonkeyKing.png" />
+    <Content Include="Content\Images\ChampionIcons\Mordekaiser.png" />
+    <Content Include="Content\Images\ChampionIcons\Morgana.png" />
+    <Content Include="Content\Images\ChampionIcons\Nami.png" />
+    <Content Include="Content\Images\ChampionIcons\Nasus.png" />
+    <Content Include="Content\Images\ChampionIcons\Nautilus.png" />
+    <Content Include="Content\Images\ChampionIcons\Nidalee.png" />
+    <Content Include="Content\Images\ChampionIcons\Nocturne.png" />
+    <Content Include="Content\Images\ChampionIcons\Nunu.png" />
+    <Content Include="Content\Images\ChampionIcons\Olaf.png" />
+    <Content Include="Content\Images\ChampionIcons\Orianna.png" />
+    <Content Include="Content\Images\ChampionIcons\Pantheon.png" />
+    <Content Include="Content\Images\ChampionIcons\Poppy.png" />
+    <Content Include="Content\Images\ChampionIcons\Quinn.png" />
+    <Content Include="Content\Images\ChampionIcons\Rammus.png" />
+    <Content Include="Content\Images\ChampionIcons\RekSai.png" />
+    <Content Include="Content\Images\ChampionIcons\Renekton.png" />
+    <Content Include="Content\Images\ChampionIcons\Rengar.png" />
+    <Content Include="Content\Images\ChampionIcons\Riven.png" />
+    <Content Include="Content\Images\ChampionIcons\Rumble.png" />
+    <Content Include="Content\Images\ChampionIcons\Ryze.png" />
+    <Content Include="Content\Images\ChampionIcons\Sejuani.png" />
+    <Content Include="Content\Images\ChampionIcons\Shaco.png" />
+    <Content Include="Content\Images\ChampionIcons\Shen.png" />
+    <Content Include="Content\Images\ChampionIcons\Shyvana.png" />
+    <Content Include="Content\Images\ChampionIcons\Singed.png" />
+    <Content Include="Content\Images\ChampionIcons\Sion.png" />
+    <Content Include="Content\Images\ChampionIcons\Sivir.png" />
+    <Content Include="Content\Images\ChampionIcons\Skarner.png" />
+    <Content Include="Content\Images\ChampionIcons\Sona.png" />
+    <Content Include="Content\Images\ChampionIcons\Soraka.png" />
+    <Content Include="Content\Images\ChampionIcons\Swain.png" />
+    <Content Include="Content\Images\ChampionIcons\Syndra.png" />
+    <Content Include="Content\Images\ChampionIcons\TahmKench.png" />
+    <Content Include="Content\Images\ChampionIcons\Taliyah.png" />
+    <Content Include="Content\Images\ChampionIcons\Talon.png" />
+    <Content Include="Content\Images\ChampionIcons\Taric.png" />
+    <Content Include="Content\Images\ChampionIcons\Teemo.png" />
+    <Content Include="Content\Images\ChampionIcons\Thresh.png" />
+    <Content Include="Content\Images\ChampionIcons\Tristana.png" />
+    <Content Include="Content\Images\ChampionIcons\Trundle.png" />
+    <Content Include="Content\Images\ChampionIcons\Tryndamere.png" />
+    <Content Include="Content\Images\ChampionIcons\TwistedFate.png" />
+    <Content Include="Content\Images\ChampionIcons\Twitch.png" />
+    <Content Include="Content\Images\ChampionIcons\Udyr.png" />
+    <Content Include="Content\Images\ChampionIcons\Urgot.png" />
+    <Content Include="Content\Images\ChampionIcons\Varus.png" />
+    <Content Include="Content\Images\ChampionIcons\Vayne.png" />
+    <Content Include="Content\Images\ChampionIcons\Veigar.png" />
+    <Content Include="Content\Images\ChampionIcons\Velkoz.png" />
+    <Content Include="Content\Images\ChampionIcons\Vi.png" />
+    <Content Include="Content\Images\ChampionIcons\Viktor.png" />
+    <Content Include="Content\Images\ChampionIcons\Vladimir.png" />
+    <Content Include="Content\Images\ChampionIcons\Volibear.png" />
+    <Content Include="Content\Images\ChampionIcons\Warwick.png" />
+    <Content Include="Content\Images\ChampionIcons\Xerath.png" />
+    <Content Include="Content\Images\ChampionIcons\XinZhao.png" />
+    <Content Include="Content\Images\ChampionIcons\Yasuo.png" />
+    <Content Include="Content\Images\ChampionIcons\Yorick.png" />
+    <Content Include="Content\Images\ChampionIcons\Zac.png" />
+    <Content Include="Content\Images\ChampionIcons\Zed.png" />
+    <Content Include="Content\Images\ChampionIcons\Ziggs.png" />
+    <Content Include="Content\Images\ChampionIcons\Zilean.png" />
+    <Content Include="Content\Images\ChampionIcons\Zyra.png" />
     <Content Include="Content\Images\connect-with-facebook.png" />
     <Content Include="Content\Images\thumb-1920-627598.jpg" />
     <Content Include="favicon.ico" />
@@ -514,6 +657,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807172316160_ChangeRoleIdFromStringToInt.resx">
       <DependentUpon>201807172316160_ChangeRoleIdFromStringToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180209091_addedChampionToDatabase.resx">
+      <DependentUpon>201807180209091_addedChampionToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180209406_PopulateChampions.resx">
+      <DependentUpon>201807180209406_PopulateChampions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

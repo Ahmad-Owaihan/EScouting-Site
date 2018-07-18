@@ -269,3 +269,5 @@ C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScout
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.AddRoleToUser.resources
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.PopulateUserRoles.resources
 C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.ChangeRoleIdFromStringToInt.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.addedChampionToDatabase.resources
+C:\Users\Dell\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.PopulateChampions.resources

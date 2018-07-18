@@ -2,9 +2,25 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var listTopChamps = Model.matches;
+
+    var list = listTopChamps.GroupBy(x => x.ChampionId).OrderByDescending(x => x.Count()).Take(5);
+
 }
 
 <h2>@Model.SummonerName</h2>
 <h2>@Model.MainRole</h2>
 <h2>Solo Queye: @Model.SoloQueue.Tier</h2>
 <h2>Ranked Queye: @Model.FlexQueue.Tier</h2>
+
+@foreach (var item in list)
+{
+     
+    var champ = Model.Champions.SingleOrDefault(c => c.Id == item.Key);
+    var champImg = champ.Name + ".png";
+     
+    <h2>Champ: @champ.Name</h2>
+    <img src="~/Content/Images/ChampionIcons/@champImg"/>
+    <h2>count: @item.Count()</h2>
+}

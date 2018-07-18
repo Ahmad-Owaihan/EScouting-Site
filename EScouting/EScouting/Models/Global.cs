@@ -140,7 +140,7 @@ namespace EScouting.Models
                         var matchStats = new MatchStatsNeeded()
                         {
                             MatchId = match.gameId,
-                            UserId = model.user.Id,
+                            UserId = user.Id,
                             ChampionId = participant.championId,
                             Kills = playerStats.kills,
                             Deaths = playerStats.deaths,

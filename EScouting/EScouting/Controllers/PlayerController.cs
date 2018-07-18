@@ -44,6 +44,9 @@ namespace EScouting.Controllers
             var matches = _context.MatchStatsNeeded.Where(m => m.UserId == id).ToList();
 
             var mainRole = _context.Roles.SingleOrDefault(r => r.Id == user.RoleId);
+
+            var champions = _context.Champions.ToList();
+
             //view model
             var viewModel = new SummonerViewModel()
             {
@@ -51,7 +54,8 @@ namespace EScouting.Controllers
                 SoloQueue = soloQueue,
                 FlexQueue = flexQueue,
                 matches = matches,
-                MainRole = mainRole.Name
+                MainRole = mainRole.Name,
+                Champions = champions
             };
 
             return View(viewModel);
