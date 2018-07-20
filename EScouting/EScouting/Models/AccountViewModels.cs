@@ -74,6 +74,7 @@ namespace EScouting.Models
 
     public class RegisterViewModel
     {
+        [CheckPlayerSummonerName]
         public ApplicationUser user { get; set; }
 
         public IEnumerable<UserType> UserTypes { get; set; }

@@ -338,7 +338,6 @@ C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\Microsoft.A
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\Microsoft.AI.Web.xml
-C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.csprojAssemblyReference.cache
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.InitialCreate.resources
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.MatchClass.resources
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.MatchClassCorrected.resources
@@ -377,3 +376,5 @@ C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScou
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.csproj.CopyComplete
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.dll
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.pdb
+C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.csprojAssemblyReference.cache
+C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.changeRolesToNullable.resources

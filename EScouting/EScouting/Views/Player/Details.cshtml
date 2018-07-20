@@ -1,67 +1,101 @@
 ﻿@model EScouting.Models.SummonerViewModel
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+        ViewBag.Title = "Details";
+        Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var list = Model.matches.GroupBy(x => x.ChampionId).OrderByDescending(x => x.Count()).Take(5);
-    var listWithAverageStats = Model.matches;
-
-    // 2 dimentional array { champ id, kills, deaths, assists, minionskilled, visionScore }
-    int[,] topArray = new int[5, 6]
+        var list = Model.matches.GroupBy(x => x.ChampionId).OrderByDescending(x => x.Count()).Take(5);
+    }
+    @if (list.Count() <= 4 || Model.matches == null)
     {
-    {list.ElementAt(0).Key, 0, 0, 0, 0, 0 },
-    {list.ElementAt(1).Key, 0, 0, 0, 0, 0 },
-    {list.ElementAt(2).Key, 0, 0, 0, 0, 0 },
-    {list.ElementAt(3).Key, 0, 0, 0, 0, 0 },
-    {list.ElementAt(4).Key, 0, 0, 0, 0, 0 }
-    };
-    var d = 0;
-}
-
-<h2>@Model.SummonerName</h2>
-<h2>@Model.MainRole</h2>
-<h2>Solo Queye: @Model.SoloQueue.Tier</h2>
-<h2>Ranked Queye: @Model.FlexQueue.Tier</h2>
-
-@*iterate through list of top champs and gather overall stats*@
-@foreach (var champ in listWithAverageStats)
-{
-    if (list.Where(x => x.Key == champ.ChampionId) != null)
+        <h2>not enough matches played to show status</h2>
+    }
+    else
     {
-        for (var i = 0; i < topArray.GetLength(0); i++)
+        // we got data!
+        <h2>@Model.SummonerName</h2>
+        <h2>@Model.MainRole</h2>
+        <h2>@Model.EP.ToString("#.#")</h2>
+        if (Model.SoloQueue != null)
         {
-            if (topArray[i, 0] == champ.ChampionId)
+            <h2>Solo Queye: @Model.SoloQueue.Tier</h2>
+        }
+        else
+        {
+            <h2>solo queue rank unavailable</h2>
+        }
+        if (Model.FlexQueue != null)
+        {
+            <h2>Ranked Queye: @Model.FlexQueue.Tier</h2>
+        }
+        else
+        {
+            <h2>Flex queue rank unavailable</h2>
+        }
+
+        // 2 dimentional array { champ id, kills, deaths, assists, minionskilled, visionScore }
+        int[,] topArray = new int[5, 6]
+        {
+{list.ElementAt(0).Key, 0, 0, 0, 0, 0 },
+{list.ElementAt(1).Key, 0, 0, 0, 0, 0 },
+{list.ElementAt(2).Key, 0, 0, 0, 0, 0 },
+{list.ElementAt(3).Key, 0, 0, 0, 0, 0 },
+{list.ElementAt(4).Key, 0, 0, 0, 0, 0 }
+        };
+        var d = 0;
+
+        if (Model.matches.Any())
+        {
+            foreach (var champ in Model.matches)
             {
-                topArray[i, 1] += champ.Kills;
-                topArray[i, 2] += champ.Deaths;
-                topArray[i, 3] += champ.Assists;
-                topArray[i, 4] += champ.TotalMinionsKilled;
-                topArray[i, 5] += champ.VisionScore;
+                if (list.Where(x => x.Key == champ.ChampionId) != null)
+                {
+                    for (var i = 0; i < topArray.GetLength(0); i++)
+                    {
+                        if (topArray[i, 0] == champ.ChampionId)
+                        {
+                            topArray[i, 1] += champ.Kills;
+                            topArray[i, 2] += champ.Deaths;
+                            topArray[i, 3] += champ.Assists;
+                            topArray[i, 4] += champ.TotalMinionsKilled;
+                            topArray[i, 5] += champ.VisionScore;
+                        }
+                    }
+                }
+            }
+
+            foreach (var item in list)
+            {
+
+                var champ = Model.Champions.SingleOrDefault(c => c.Id == item.Key);
+                var champImg = champ.Name + ".png";
+                float aKills = (float)topArray[d, 1] / item.Count();
+                float aDeaths = (float)topArray[d, 2] / item.Count();
+                float aAssists = (float)topArray[d, 3] / item.Count();
+                float aMinionsKilled = (float)topArray[d, 4] / item.Count();
+                float aVision = (float)topArray[d, 5] / item.Count();
+                <p>Champ: @champ.Name</p>
+                <img src="~/Content/Images/ChampionIcons/@champImg" />
+                <p>id: @champ.Id</p>
+                <p>id: @topArray[d, 0]</p>
+                <p>count: @item.Count()</p>
+                <p>kills @aKills.ToString("#.#")</p>
+                <p>Deaths @aDeaths.ToString("#.#")</p>
+                <p>Assists @aAssists.ToString("#.#")</p>
+                <p>CS @aMinionsKilled.ToString("#.#")</p>
+                <p>Vision @aVision.ToString("#.#")</p>
+
+                d++;
             }
         }
+        else
+        {
+            <p>no games played</p>
+        }
     }
+
+
+
 }
+@*iterate through list of top champs and gather overall stats*@
 
-@foreach (var item in list)
-{
 
-    var champ = Model.Champions.SingleOrDefault(c => c.Id == item.Key);
-    var champImg = champ.Name + ".png";
-    float aKills = (float)topArray[d, 1] / item.Count();
-    float aDeaths = (float)topArray[d, 2] / item.Count();
-    float aAssists = (float)topArray[d, 3] / item.Count();
-    float aMinionsKilled = (float)topArray[d, 4] / item.Count();
-    float aVision = (float)topArray[d, 5] / item.Count();
-    <p>Champ: @champ.Name</p>
-    <img src="~/Content/Images/ChampionIcons/@champImg" />
-    <p>id: @champ.Id</p>
-    <p>id: @topArray[d, 0]</p>
-    <p>count: @item.Count()</p>
-    <p>kills @aKills.ToString("#.#")</p>
-    <p>Deaths @aDeaths.ToString("#.#")</p>
-    <p>Assists @aAssists.ToString("#.#")</p>
-    <p>CS @aMinionsKilled.ToString("#.#")</p>
-    <p>Vision @aVision.ToString("#.#")</p>
-
-    d++;
-}

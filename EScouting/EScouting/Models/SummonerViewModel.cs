@@ -13,5 +13,6 @@ namespace EScouting.Models
         public RankedStats FlexQueue { get; set; }
         public List<MatchStatsNeeded> matches { get; set; }
         public List<Champion> Champions { get; set; }
+        public float EP { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace EScouting.Models
         public Role Role { get; set; }
 
         [Display(Name="Main Role")]
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
 
         [Display(Name= "Type of User")]
         public int UserTypeId { get; set; }
@@ -38,7 +38,6 @@ namespace EScouting.Models
         [Display(Name="Country")]
         public int CountryId { get; set; }
 
-        [CheckPlayerSummonerName]
         [Display(Name ="Summoner Name")]
         public string SummonerName { get; set; }
 

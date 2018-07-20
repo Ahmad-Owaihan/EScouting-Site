@@ -17,7 +17,8 @@ namespace EScouting.Models.Validation
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var user = (ApplicationUser)validationContext.ObjectInstance;
+            var userViewModel = (RegisterViewModel)validationContext.ObjectInstance;
+            var user = userViewModel.user;
 
             // if user selects coach then no need for summoner name
             if (user.UserTypeId == UserType.Coach)

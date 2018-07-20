@@ -328,6 +328,10 @@
     <Compile Include="Migrations\201807180209406_PopulateChampions.Designer.cs">
       <DependentUpon>201807180209406_PopulateChampions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807200325410_changeRolesToNullable.cs" />
+    <Compile Include="Migrations\201807200325410_changeRolesToNullable.Designer.cs">
+      <DependentUpon>201807200325410_changeRolesToNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Champion.cs" />
@@ -663,6 +667,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807180209406_PopulateChampions.resx">
       <DependentUpon>201807180209406_PopulateChampions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807200325410_changeRolesToNullable.resx">
+      <DependentUpon>201807200325410_changeRolesToNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

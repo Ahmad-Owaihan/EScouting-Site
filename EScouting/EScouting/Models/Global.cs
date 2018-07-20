@@ -12,7 +12,7 @@ namespace EScouting.Models
 {
     public class Global
     {
-        public static string Key = "RGAPI-5434df27-9b8f-41be-8ccd-847b0f0fd386";
+        public static string Key = "RGAPI-8390aeab-db7d-451f-992b-8c26e132fff7";
 
         // methods
 
@@ -157,6 +157,33 @@ namespace EScouting.Models
                 });
                 _context.SaveChanges();
             }
+        }
+
+        //method for calculating Epoints
+        public static float GetEPoints(string role, float kills, float assists, float deaths, float cs, float vision)
+        {
+            float EP = 0;
+            switch (role)
+            {
+                case "Mid":
+                    EP = ((kills * 3) + (assists * 1) + (cs/200)) / deaths; // average cs 200 per game (cs = minions killed)
+                    break;
+                case "Top":
+                    EP = ((kills * 3) + (cs/200)) / deaths; // top assists are not counted
+                    break;
+                case "Jungler":
+                    EP = ((kills * 3) + (cs/120)) / deaths; // average cs 120 for junglers
+                    break;
+                case "Adc":
+                    EP = ((kills * 3) + ((cs/200)*2) + assists) / deaths; // adc gains more EP from cs
+                    break;
+                case "Support":
+                    EP = (kills + (assists * 3) + (vision/28)) / deaths; // average vision 28
+                    break;
+                default:
+                    break;
+            }
+            return EP;
         }
     }
 }
