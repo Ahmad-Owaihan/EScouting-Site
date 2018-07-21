@@ -168,8 +168,11 @@ namespace EScouting.Controllers
                     Email = model.Email,
                     Name = model.user.Name,
                     RegionId = model.user.RegionId,
+                    Region = _context.Regions.SingleOrDefault(r => r.Id == model.user.RegionId),
                     UserTypeId = model.user.UserTypeId,
+                    UserType = _context.UserTypes.SingleOrDefault(r => r.Id == model.user.UserTypeId),
                     CountryId = model.user.CountryId,
+                    Country = _context.Countries.SingleOrDefault(r => r.Id == model.user.CountryId),
                     RoleId = model.user.RoleId,
                     SummonerName = model.user.SummonerName,
                 };

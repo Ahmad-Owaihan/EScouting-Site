@@ -378,3 +378,9 @@ C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScou
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.pdb
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.csprojAssemblyReference.cache
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.changeRolesToNullable.resources
+C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\System.Net.Http.Formatting.dll
+C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\System.Web.Http.dll
+C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\System.Web.Http.WebHost.dll
+C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\System.Net.Http.Formatting.xml
+C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\System.Web.Http.xml
+C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\System.Web.Http.WebHost.xml
