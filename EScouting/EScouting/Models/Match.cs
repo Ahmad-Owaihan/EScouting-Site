@@ -18,7 +18,7 @@ namespace EScouting.Models
         public string gameMode { get; set; }
         public int mapId { get; set; }
         public string gameType { get; set; }
-        public Team[] teams { get; set; }
+        public CoachTeam[] teams { get; set; }
         public Participant[] participants { get; set; }
         public int gameDuration { get; set; }
         public long gameCreation { get; set; }
@@ -46,7 +46,7 @@ namespace EScouting.Models
         public long accountId { get; set; }
     }
 
-    public class Team
+    public class CoachTeam
     {
         public int Id { get; set; }
         public bool firstDragon { get; set; }

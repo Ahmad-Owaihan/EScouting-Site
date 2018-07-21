@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EScouting.Models.ApplicationUser>
+﻿@model EScouting.Models.PlayersIndexViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,31 +6,48 @@
 
 <h2>all Players</h2>
 
-@if (!Model.Any())
+@if (!Model.Players.Any())
 {
     <h2>No players yet.</h2>
 }
 else
 {
-    <table id="playersTable" class="table table-bordered table-hover">
+    <table id="playersTable" class="table table-dark table-hover">
         <thead>
-            <tr>Player</tr>
-            <tr>Summoner Name</tr>
-            <tr>Nationality</tr>
-            <tr>Server</tr>
-            <tr>EP</tr>
+            <tr>
+                <th>Player</th>
+                <th>Nationality</th>
+                <th>Server</th>
+                <th>Role</th>
+                <th>EP</th>
+            </tr>
         </thead>
         <tbody>
-            @foreach(var player in Model)
+            @foreach(var player in Model.Players)
             {
+                var country = Model.Countries.SingleOrDefault(c => c.Id == player.CountryId);
+                var region = Model.Regions.SingleOrDefault(c => c.Id == player.RegionId);
+                var role = Model.Roles.SingleOrDefault(r => r.Id == player.RoleId);
+
                 <tr>
                     <td>@player.Name</td>
-                    <td>@player.SummonerName</td>
-                    <td></td>
-                    <td></td>
+                    <td>@country.Name</td>
+                    <td>@region.Name</td>
+                    <td>@role.Name</td>
                     <td>@player.EPoints.ToString("#.#")</td>
                 </tr>
             }
         </tbody>
     </table>
 }
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#playersTable").DataTable();
+
+        });
+    </script>
+    }

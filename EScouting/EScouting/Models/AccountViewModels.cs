@@ -18,6 +18,8 @@ namespace EScouting.Models
         public IEnumerable<Region> Regions { get; set; }
 
         public IEnumerable<Country> Countries { get; set; }
+
+        public IEnumerable<Role> Roles { get; set; }
     }
 
     public class ExternalLoginListViewModel

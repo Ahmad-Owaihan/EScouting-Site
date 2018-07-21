@@ -168,11 +168,8 @@ namespace EScouting.Controllers
                     Email = model.Email,
                     Name = model.user.Name,
                     RegionId = model.user.RegionId,
-                    Region = _context.Regions.SingleOrDefault(r => r.Id == model.user.RegionId),
                     UserTypeId = model.user.UserTypeId,
-                    UserType = _context.UserTypes.SingleOrDefault(r => r.Id == model.user.UserTypeId),
                     CountryId = model.user.CountryId,
-                    Country = _context.Countries.SingleOrDefault(r => r.Id == model.user.CountryId),
                     RoleId = model.user.RoleId,
                     SummonerName = model.user.SummonerName,
                 };
@@ -191,7 +188,7 @@ namespace EScouting.Controllers
 
                     Global.AddStats(_context, model, user);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Details", "Player", new { id = user.Id});
                 }
                 AddErrors(result);
             }
@@ -382,7 +379,8 @@ namespace EScouting.Controllers
                         Email = loginInfo.Email,
                         Regions = _context.Regions.ToList(),
                         UserTypes = _context.UserTypes.ToList(),
-                        Countries = GetAllCountries().ToList()
+                        Countries = GetAllCountries().ToList(),
+                        Roles = _context.Roles.ToList()
                     });
             }
         }
@@ -397,7 +395,7 @@ namespace EScouting.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Manage");
+                return RedirectToAction("Details", "Player", new { id = model.User.Id});
             }
 
             if (ModelState.IsValid)
@@ -416,7 +414,8 @@ namespace EScouting.Controllers
                     Name = model.User.Name,
                     UserTypeId = model.User.UserTypeId,
                     RegionId = model.User.RegionId,
-                    CountryId = model.User.CountryId
+                    CountryId = model.User.CountryId,
+                    RoleId = model.User.RoleId
                 };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -425,7 +424,14 @@ namespace EScouting.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+
+
+                        if (user.UserTypeId == UserType.Player)
+                        {
+                            Global.AddStatsForExternal(_context, model, user);
+                            return RedirectToAction("Details", "Player", new { id = user.Id });
+                        }
+                        return RedirectToAction("Coach", "Player", new { id = user.Id });
                     }
                 }
                 AddErrors(result);
@@ -543,16 +549,18 @@ namespace EScouting.Controllers
 
         private List<Country> GetAllCountries()
         {
-            // get countries and put them in a list
-            List<Country> countryList = new List<Country>();
-            foreach (var country in Global.CountryList())
-            {
-                countryList.Add(new Country { Id = countryList.Count, Name = country.Value, Value = country.Key });
-            }
+            var countryList = _context.Countries.ToList();
 
             // save countries in db if that hasn't been done
-            if (_context.Countries.ToList().Count == 0)
+            if (countryList.Count == 0 || countryList == null)
             {
+                countryList = new List<Country>();
+
+                foreach (var country in Global.CountryList())
+                {
+                    countryList.Add(new Country { Id = countryList.Count, Name = country.Value, Value = country.Key });
+                }
+
                 foreach (var country in countryList)
                 {
                     _context.Countries.Add(country);

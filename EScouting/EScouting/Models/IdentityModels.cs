@@ -56,25 +56,12 @@ namespace EScouting.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Club> Clubs { get; set; }
         public DbSet<Champion> Champions { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<RankedStats> RankedStats { get; set; }
         public DbSet<MatchStatsNeeded> MatchStatsNeeded { get; set; }
         public DbSet<Match> Matches { get; set; }
-        public DbSet<Participantidentity> ParticipantIdentities { get; set; }
-        public DbSet<Player> Players { get; set; }
-        public DbSet<Team> Teams { get; set; }
-        public DbSet<Ban> Bans { get; set; }
-        public DbSet<Participant> Participants { get; set; }
-        public DbSet<Stats> Stats { get; set; }
-        public DbSet<Timeline> TimeLines { get; set; }
-        public DbSet<Csdiffpermindeltas> Csdiffpermindeltas { get; set; }
-        public DbSet<Goldpermindeltas> Goldpermindeltas { get; set; }
-        public DbSet<Xpdiffpermindeltas> Xpdiffpermindeltas { get; set; }
-        public DbSet<Creepspermindeltas> Creepspermindeltas { get; set; }
-        public DbSet<Xppermindeltas> Xppermindeltas { get; set; }
-        public DbSet<Damagetakendiffpermindeltas> Damagetakendiffpermindeltas { get; set; }
-        public DbSet<Damagetakenpermindeltas> Damagetakenpermindeltas { get; set; }
         public DbSet<UserType> UserTypes { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<Country> Countries { get; set; }

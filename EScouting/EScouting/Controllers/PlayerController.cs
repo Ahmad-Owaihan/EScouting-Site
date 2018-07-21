@@ -24,9 +24,19 @@ namespace EScouting.Controllers
         // GET: Player
         public ActionResult Index()
         {
-            var players = _context.Users.Where(u => u.UserTypeId == UserType.Player);
+            var players = _context.Users.Where(u => u.UserTypeId == UserType.Player).ToList();
+            var counries = _context.Countries.ToList();
+            var roles = _context.Roles.ToList();
+            var regions = _context.Regions.ToList();
 
-            return View(players);
+            var viewModel = new PlayersIndexViewModel()
+            {
+                Players = players,
+                Countries = counries,
+                Regions = regions,
+                Roles = roles
+            };
+            return View(viewModel);
         }
 
         public ActionResult Details(string id)
@@ -34,6 +44,9 @@ namespace EScouting.Controllers
             var user = _context.Users.SingleOrDefault(u => u.Id == id);
             if (user == null)
                 return HttpNotFound();
+
+            if (user.UserTypeId == UserType.Coach)
+                return View("Coach", user);
 
             var soloQueue = _context.RankedStats.SingleOrDefault(r => r.UserId == id && r.QueueType == "RANKED_SOLO_5x5");
             var flexQueue = _context.RankedStats.SingleOrDefault(r => r.UserId == id && r.QueueType == "RANKED_FLEX_SR");
@@ -129,6 +142,26 @@ namespace EScouting.Controllers
 
             _context.SaveChanges();
             return View(viewModel);
+            
+        }
+
+        public ActionResult Coach(string id)
+        {
+            var coach = _context.Users.SingleOrDefault(c => c.Id == id);
+            var clubs = _context.Clubs.ToList();
+            Club myClub;
+            bool hasClub = false;
+            foreach(var club in clubs)
+            {
+                if (club.Members.Contains(coach))
+                {
+                    myClub = club;
+                    hasClub = true;
+                }
+            }
+
+            var viewModel
+            return View(coach);
         }
     }
 }

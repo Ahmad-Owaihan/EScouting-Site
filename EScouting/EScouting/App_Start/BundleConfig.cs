@@ -12,8 +12,8 @@ namespace EScouting
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/respond.js",
-                        "~/Scripts/datatables/jquery.datatables.js",
-                        "~/Scripts/datatables/datatables.bootstrap.js"
+                        "~/Scripts/datatables/jquery.dataTables.js",
+                        "~/Scripts/datatables/dataTables.bootstrap4.js"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -26,7 +26,7 @@ namespace EScouting
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/datatables/css/datatables.bootstrap.css",
+                      "~/Content/datatables/css/dataTables.bootstrap4.css",
                       "~/Content/site.css"));
         }
     }

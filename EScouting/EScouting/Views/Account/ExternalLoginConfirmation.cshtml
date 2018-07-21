@@ -14,12 +14,18 @@
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <p class="text-info">
         Welcome new User! You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
-        Please fill in the details below to create an account.
+        Please fill in the details below to create an account for future easy access.
     </p>
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.User.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.User.Name, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
@@ -47,9 +53,9 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.User.Name, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.User.RoleId, new { @class = "col-2 control-label if-player" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.User.Name, new { @class = "form-control" })
+            @Html.DropDownListFor(p => p.User.RoleId, new SelectList(Model.Roles, "Id", "Name"), "....", new { @class = "form-control if-player" })
         </div>
     </div>
     <div class="form-group">
@@ -62,24 +68,24 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-            $(document).ready(function () {
-                console.log("hello");
+        $(document).ready(function () {
+            console.log("hello");
 
-                $('#target-user-type').change(function () {
-                    var id = $('#target-user-type').val(); // coach or player
-                    console.log(id);
-                    if (id == 2) {
-                        //if user selects coach option
-                        //hide player options
-                        $('.if-player').hide();
-                        console.log("coach");
-                    } else // if player selects player option
-                    {
-                        $('.if-player').show();
-                        console.log("player");
-                    }
-                });
+            $('#target-user-type').change(function () {
+                var id = $('#target-user-type').val(); // coach or player
+                console.log(id);
+                if (id == 2) {
+                    //if user selects coach option
+                    //hide player options
+                    $('.if-player').hide();
+                    console.log("coach");
+                } else // if player selects player option
+                {
+                    $('.if-player').show();
+                    console.log("player");
+                }
             });
+        });
 
     </script>
 }
