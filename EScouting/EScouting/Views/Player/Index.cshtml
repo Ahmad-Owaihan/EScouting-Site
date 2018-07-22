@@ -30,7 +30,7 @@ else
                 var role = Model.Roles.SingleOrDefault(r => r.Id == player.RoleId);
 
                 <tr>
-                    <td>@player.Name</td>
+                    <td>@Html.ActionLink(player.Name, "Details", "Player", new { id = player.Id}, null )</td>
                     <td>@country.Name</td>
                     <td>@region.Name</td>
                     <td>@role.Name</td>

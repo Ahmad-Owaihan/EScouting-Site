@@ -149,19 +149,51 @@ namespace EScouting.Controllers
         {
             var coach = _context.Users.SingleOrDefault(c => c.Id == id);
             var clubs = _context.Clubs.ToList();
-            Club myClub;
+            Club myClub = new Club();
+            var members = new List<ApplicationUser>();
             bool hasClub = false;
             foreach(var club in clubs)
             {
-                if (club.Members.Contains(coach))
+                if (club.Members != null)
                 {
-                    myClub = club;
-                    hasClub = true;
+                    if (club.Members.Contains(coach))
+                    {
+                        members = club.Members.ToList();
+                        myClub = club;
+                        hasClub = true;
+                    }
+                    
                 }
             }
 
-            var viewModel
-            return View(coach);
+            var viewModel = new ClubViewModel()
+            {
+                Club = myClub,
+                HasClub = hasClub,
+                Members = members,
+                CoachId = coach.Id,
+                CoachName = coach.Name
+            };
+            //var viewModel
+            return View(viewModel);
+        }
+
+        public ActionResult CreateClub(ClubViewModel model)
+        {
+            var newClub = new Club()
+            {
+                Name = model.Club.Name,
+                Members = new List<ApplicationUser>(),
+            };
+
+            var coach = _context.Users.SingleOrDefault(c => c.Id == model.CoachId);
+
+            newClub.Members.Add(coach);
+            _context.Clubs.Add(newClub);
+            _context.SaveChanges();
+
+            return RedirectToAction("Coach", new { id = coach.Id });
+
         }
     }
 }

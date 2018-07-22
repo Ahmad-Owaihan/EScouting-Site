@@ -186,9 +186,13 @@ namespace EScouting.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    Global.AddStats(_context, model, user);
+                    if (user.UserTypeId == UserType.Player)
+                    {
+                        Global.AddStats(_context, model, user);
+                        return RedirectToAction("Details", "Player", new { id = user.Id });
+                    }
+                    return RedirectToAction("Coach", "Player", new { id = user.Id });
 
-                    return RedirectToAction("Details", "Player", new { id = user.Id});
                 }
                 AddErrors(result);
             }

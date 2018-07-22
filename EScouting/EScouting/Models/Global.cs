@@ -258,7 +258,7 @@ namespace EScouting.Models
                     EP = ((kills * 3) + (cs/200)) / deaths; // top assists are not counted
                     break;
                 case "Jungler":
-                    EP = ((kills * 3) + (cs/120)) / deaths; // average cs 120 for junglers
+                    EP = ((kills * 3) + (assists) + (cs/120)) / deaths; // average cs 120 for junglers
                     break;
                 case "Adc":
                     EP = ((kills * 3) + ((cs/200)*2) + assists) / deaths; // adc gains more EP from cs

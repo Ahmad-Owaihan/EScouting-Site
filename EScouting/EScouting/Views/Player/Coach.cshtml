@@ -1,9 +1,61 @@
-﻿@model EScouting.Models.ApplicationUser
+﻿@model EScouting.Models.ClubViewModel
 @{
+    /**/
+
     ViewBag.Title = "Coach";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Coach</h2>
 
-<p>@Model.Name</p>
+<p>Coach Name: @Model.CoachName</p>
+
+@if (!Model.HasClub)
+{
+    <p>no club. please create one</p>
+    using (Html.BeginForm("CreateClub", "Player", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Club.Name, new { @class = "col-2 control-label if-player" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Club.Name, new { @class = "form-control if-player" })
+            </div>
+        </div>
+        @Html.HiddenFor(x => x.CoachId);
+        @Html.HiddenFor(x => x.CoachName);
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Register" />
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Club Name: @Model.Club.Name</p>
+
+    if (!Model.Members.Any())
+    {
+        <p>no members yet</p>
+    }
+    else
+    {
+        <table id="playersTable" class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>EP</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.Members.Where(x => x.UserTypeId == 1))
+                {
+                    <tr>
+                        <td>@Html.ActionLink(player.Name, "Details", "Player", new { id = player.Id }, null)</td>
+                        <td>@player.EPoints.ToString("#.#")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }}
+}

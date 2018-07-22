@@ -351,6 +351,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Champion.cs" />
     <Compile Include="Models\Club.cs" />
+    <Compile Include="Models\ClubViewModel.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Global.cs" />
     <Compile Include="Models\IdentityModels.cs" />
