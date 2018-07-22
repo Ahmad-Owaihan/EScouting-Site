@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+@model EScouting.Models.HomeViewModel
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,43 +10,70 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'>
     @Scripts.Render("~/bundles/lib")
 
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                   @Html.ActionLink("Home", "Index", "Home", null, new { @class="nav-link"})
                 </li>
                 <li class="nav-item">
                     @Html.ActionLink("Players", "Index", "Player", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                    @Html.ActionLink("Coaches", "CoachIndex", "Player", null, new { @class = "nav-link" })
                 </li>
             </ul>
-            @Html.Partial("_LoginPartial")
+            <ul class="navbar-nav">
+
+                @if (Request.IsAuthenticated)
+                {
+                    var user = Model.Users.SingleOrDefault(u => u.Id == User.Identity.GetUserId());
+                    var invitations = Model.Invitations.Where(i => i.ToId == user.Id).ToList();
+
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Invitations <span class="badge badge-light">@invitations.Count</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            @foreach (var inv in invitations)
+                            {
+
+                                var coach = Model.Users.SingleOrDefault(u => u.Id == inv.FromId);
+                                <a class="dropdown-item blue" href='@string.Format("Player/Coach/{0}", coach.Id)'> @string.Format("Coach {0} invites you to his club.", coach.Name) </a>
+                            }
+                        </div>
+                    </li>
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        if (Model.Users.SingleOrDefault(u => u.Id == User.Identity.GetUserId()).UserTypeId == 1)
+                        {
+                            @Html.ActionLink(user.Name, "Details", "Player", new { id = User.Identity.GetUserId() }, new { @Class=""})
+                        }
+                        else
+                        {
+                            @Html.ActionLink(User.Identity.Name, "coach", "Player", new { id = User.Identity.GetUserId() }, null)
+                        }
+
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Logout" class="btn btn-danger" />
+                    }
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+                }
+
+            </ul>
         </div>
     </nav>
-    
+
 
 
     <div class="container body-content">

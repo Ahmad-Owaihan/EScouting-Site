@@ -5,7 +5,7 @@ using System.Web;
 
 namespace EScouting.Models
 {
-    public class PlayersIndexViewModel
+    public class PlayersIndexViewModel : HomeViewModel
     {
         public List<Country> Countries { get; set; }
         public List<ApplicationUser> Players { get; set; }

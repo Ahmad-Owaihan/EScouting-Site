@@ -38,3 +38,35 @@ textarea {
     width: 270px;
     height: 50px;
 }
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.nav-item a {
+    color: white;
+    font-size: 1.7em;
+    margin-right: 50px;
+}
+
+.nav-item a:hover {
+    color: Orange !important;
+    cursor: pointer;
+}
+
+a {
+    color: dodgerblue !important;
+    font-weight: bold;
+    font-size: 1.2em;
+    font-family: 'Aldrich';
+}
+
+.navbar {
+    border-bottom: 1px solid white;
+    margin-bottom: 50px;
+}
+
+.blue {
+    color:dodgerblue !important;
+    font-size: 1.1em !important;
+}

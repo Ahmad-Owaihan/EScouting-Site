@@ -4,7 +4,7 @@ using EScouting.Models.Validation;
 
 namespace EScouting.Models
 {
-    public class ExternalLoginConfirmationViewModel
+    public class ExternalLoginConfirmationViewModel : HomeViewModel
     {
         [Required]
         [Display(Name = "Email")]
@@ -27,7 +27,7 @@ namespace EScouting.Models
         public string ReturnUrl { get; set; }
     }
 
-    public class SendCodeViewModel
+    public class SendCodeViewModel : HomeViewModel
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
@@ -35,7 +35,7 @@ namespace EScouting.Models
         public bool RememberMe { get; set; }
     }
 
-    public class VerifyCodeViewModel
+    public class VerifyCodeViewModel : HomeViewModel
     {
         [Required]
         public string Provider { get; set; }
@@ -51,14 +51,14 @@ namespace EScouting.Models
         public bool RememberMe { get; set; }
     }
 
-    public class ForgotViewModel
+    public class ForgotViewModel : HomeViewModel
     {
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
-    public class LoginViewModel
+    public class LoginViewModel : HomeViewModel
     {
         [Required]
         [Display(Name = "Email")]
@@ -74,7 +74,7 @@ namespace EScouting.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
+    public class RegisterViewModel : HomeViewModel
     {
         [CheckPlayerSummonerName]
         public ApplicationUser user { get; set; }
@@ -104,8 +104,8 @@ namespace EScouting.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ResetPasswordViewModel
-    {
+    public class ResetPasswordViewModel : HomeViewModel
+    { 
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -125,7 +125,7 @@ namespace EScouting.Models
         public string Code { get; set; }
     }
 
-    public class ForgotPasswordViewModel
+    public class ForgotPasswordViewModel : HomeViewModel
     {
         [Required]
         [EmailAddress]

@@ -385,3 +385,4 @@ C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\System.Net.
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\System.Web.Http.xml
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\bin\System.Web.Http.WebHost.xml
 C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.AddClubsToDBAndRemoveUneccessaryTables.resources
+C:\Users\Ahmad\Dropbox\GitHub\EScouting-Site\EScouting\EScouting\obj\Debug\EScouting.Migrations.ClubInvitationsDB.resources

@@ -1,4 +1,6 @@
-﻿@model EScouting.Models.ClubViewModel
+﻿@using Microsoft.AspNet.Identity
+
+@model EScouting.Models.ClubViewModel
 @{
     /**/
 
@@ -9,6 +11,35 @@
 <h2>Coach</h2>
 
 <p>Coach Name: @Model.CoachName</p>
+@if (Request.IsAuthenticated)
+{
+    var player = Model.Users.SingleOrDefault(u => u.Id == User.Identity.GetUserId());
+    if (Model.Invitations.Where(u => u.FromId == Model.CoachId && u.ToId == player.Id).Any())
+    {
+        using (Html.BeginForm("AcceptOffer", "Player", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.HiddenFor(x => x.UserId, new { @Value = player.Id });
+            @Html.HiddenFor(x => x.ClubId);
+            @Html.HiddenFor(x => x.CoachId);
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Join Club" />
+                </div>
+            </div>
+        }
+        using (Html.BeginForm("DeclineOffer", "Player", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.HiddenFor(x => x.UserId, new { @Value = player.Id });
+            @Html.HiddenFor(x => x.ClubId);
+            @Html.HiddenFor(x => x.CoachId);
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Decline Offer" />
+                </div>
+            </div>
+        }
+    }
+}
 
 @if (!Model.HasClub)
 {
@@ -16,9 +47,9 @@
     using (Html.BeginForm("CreateClub", "Player", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         <div class="form-group">
-            @Html.LabelFor(m => m.Club.Name, new { @class = "col-2 control-label if-player" })
+            @Html.LabelFor(m => m.Club.Name, new { @class = "col-2 control-labelr" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Club.Name, new { @class = "form-control if-player" })
+                @Html.TextBoxFor(m => m.Club.Name, new { @class = "form-control" })
             </div>
         </div>
         @Html.HiddenFor(x => x.CoachId);
@@ -34,7 +65,7 @@ else
 {
     <p>Club Name: @Model.Club.Name</p>
 
-    if (!Model.Members.Any())
+    if (!Model.Members.Any(c => c.UserTypeId == 1))
     {
         <p>no members yet</p>
     }
@@ -57,5 +88,5 @@ else
                 }
             </tbody>
         </table>
-    }}
+    }
 }

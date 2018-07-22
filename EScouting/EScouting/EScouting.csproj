@@ -347,25 +347,32 @@
     <Compile Include="Migrations\201807210541100_AddClubsToDBAndRemoveUneccessaryTables.Designer.cs">
       <DependentUpon>201807210541100_AddClubsToDBAndRemoveUneccessaryTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807220348078_ClubInvitationsDB.cs" />
+    <Compile Include="Migrations\201807220348078_ClubInvitationsDB.Designer.cs">
+      <DependentUpon>201807220348078_ClubInvitationsDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\viewModels\AccountViewModels.cs" />
     <Compile Include="Models\Champion.cs" />
     <Compile Include="Models\Club.cs" />
-    <Compile Include="Models\ClubViewModel.cs" />
+    <Compile Include="Models\ClubInvitation.cs" />
+    <Compile Include="Models\viewModels\ClubViewModel.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Global.cs" />
+    <Compile Include="Models\viewModels\CoachesViewModel.cs" />
+    <Compile Include="Models\viewModels\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\League.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\viewModels\ManageViewModels.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Matches.cs" />
     <Compile Include="Models\MatchStatsNeeded.cs" />
-    <Compile Include="Models\PlayersIndexViewModel.cs" />
+    <Compile Include="Models\viewModels\PlayersIndexViewModel.cs" />
     <Compile Include="Models\RankedStats.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Summoner.cs" />
-    <Compile Include="Models\SummonerViewModel.cs" />
+    <Compile Include="Models\viewModels\SummonerViewModel.cs" />
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Models\Validation\CheckPlayerRegion.cs" />
     <Compile Include="Models\Validation\CheckPlayerSummonerName.cs" />
@@ -806,6 +813,7 @@
     <Content Include="Views\Player\Details.cshtml" />
     <Content Include="Views\Shared\_nav.cshtml" />
     <Content Include="Views\Player\Coach.cshtml" />
+    <Content Include="Views\Player\CoachesIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -928,6 +936,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807210541100_AddClubsToDBAndRemoveUneccessaryTables.resx">
       <DependentUpon>201807210541100_AddClubsToDBAndRemoveUneccessaryTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807220348078_ClubInvitationsDB.resx">
+      <DependentUpon>201807220348078_ClubInvitationsDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

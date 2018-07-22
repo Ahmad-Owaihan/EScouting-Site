@@ -1,0 +1,25 @@
+﻿@model EScouting.Models.viewModels.CoachesViewModel
+@{
+    ViewBag.Title = "CoachesIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Coaches</h2>
+
+<table id="playersTable" class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th>Coach</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var coach in Model.Coaches)
+        {
+
+            <tr>
+                <td>@Html.ActionLink(coach.Name, "Coach", "Player", new { id = coach.Id }, null)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

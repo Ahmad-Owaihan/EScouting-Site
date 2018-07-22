@@ -21,7 +21,8 @@ namespace EScouting.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var viewModel = new HomeViewModel();
+            return View(viewModel);
         }
 
         public ActionResult About()

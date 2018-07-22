@@ -1,4 +1,5 @@
 ﻿using EScouting.Models;
+using EScouting.Models.viewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace EScouting.Controllers
 {
@@ -128,6 +130,8 @@ namespace EScouting.Controllers
                 }
             }
 
+            var listOfInvitations = _context.ClubInvitations.ToList();
+
             //view model
             var viewModel = new SummonerViewModel()
             {
@@ -137,7 +141,10 @@ namespace EScouting.Controllers
                 matches = matches,
                 MainRole = mainRole.Name,
                 Champions = champions,
-                EP = user.EPoints
+                EP = user.EPoints,
+                UserId = user.Id,
+                Invitations = listOfInvitations
+                
             };
 
             _context.SaveChanges();
@@ -145,10 +152,20 @@ namespace EScouting.Controllers
             
         }
 
+        public ActionResult CoachIndex()
+        {
+            var coaches = _context.Users.Where(u => u.UserTypeId == UserType.Coach).ToList();
+            var viewModel = new CoachesViewModel()
+            {
+                Coaches = coaches
+            };
+            return View("CoachesIndex", viewModel);
+        }
+
         public ActionResult Coach(string id)
         {
             var coach = _context.Users.SingleOrDefault(c => c.Id == id);
-            var clubs = _context.Clubs.ToList();
+            var clubs = _context.Clubs.Include(c => c.Members).ToList();
             Club myClub = new Club();
             var members = new List<ApplicationUser>();
             bool hasClub = false;
@@ -172,12 +189,14 @@ namespace EScouting.Controllers
                 HasClub = hasClub,
                 Members = members,
                 CoachId = coach.Id,
-                CoachName = coach.Name
+                CoachName = coach.Name,
+                ClubId = myClub.Id
             };
             //var viewModel
             return View(viewModel);
         }
 
+        [HttpPost]
         public ActionResult CreateClub(ClubViewModel model)
         {
             var newClub = new Club()
@@ -194,6 +213,44 @@ namespace EScouting.Controllers
 
             return RedirectToAction("Coach", new { id = coach.Id });
 
+        }
+
+        [HttpPost]
+        public ActionResult InviteToClub(SummonerViewModel model)
+        {
+            _context.ClubInvitations.Add(new ClubInvitation
+            {
+                FromId = model.coachId,
+                ToId = model.UserId
+            });
+
+            _context.SaveChanges();
+            return RedirectToAction("Details", "Player", new { id = model.UserId });
+        }
+
+        public ActionResult AcceptOffer(ClubViewModel model)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.Id == model.UserId);
+            var club = _context.Clubs.SingleOrDefault(c => c.Id == model.ClubId);
+            var invitation = _context.ClubInvitations.SingleOrDefault(i => i.FromId == model.CoachId && i.ToId == user.Id);
+
+            _context.ClubInvitations.Remove(invitation);
+            club.Members = new List<ApplicationUser>();
+            club.Members.Add(user);
+            _context.SaveChanges();
+            
+            return RedirectToAction("Coach", "Player", new { id = model.CoachId });
+        }
+
+        public ActionResult DeclineOffer(ClubViewModel model)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.Id == model.UserId);
+            var invitation = _context.ClubInvitations.SingleOrDefault(i => i.FromId == model.CoachId && i.ToId == user.Id);
+
+            _context.ClubInvitations.Remove(invitation);
+            _context.SaveChanges();
+
+            return RedirectToAction("Coach", "Player", new { id = model.CoachId });
         }
     }
 }

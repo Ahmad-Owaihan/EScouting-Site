@@ -56,6 +56,7 @@ namespace EScouting.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<ClubInvitation> ClubInvitations { get; set; }
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Champion> Champions { get; set; }
         public DbSet<Role> Roles { get; set; }
