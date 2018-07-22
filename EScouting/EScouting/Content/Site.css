@@ -56,7 +56,6 @@ textarea {
 
 a {
     color: dodgerblue !important;
-    font-weight: bold;
     font-size: 1.2em;
     font-family: 'Aldrich';
 }
@@ -69,4 +68,99 @@ a {
 .blue {
     color:dodgerblue !important;
     font-size: 1.1em !important;
+}
+
+.player-name {
+    color: dodgerblue;
+    font-size: 3.5em;
+    font-family: 'Kumar One';
+    margin-bottom: 70px;
+}
+
+.brand {
+    color: red !important;
+    font-size: 2em !important;
+    font-weight: bold !important;
+}
+
+.title {
+    color: red;
+    font-size: 2em;
+    font-family: 'Aldrich';
+}
+
+.EP {
+    font-size: 1.2em;
+    font-weight: bold;
+    font-family: 'Aldrich';
+}
+
+.small-span {
+    font-size: 0.5em;
+}
+
+.table-details {
+    background: linear-gradient(to right, #061838, #2a55a3) !important;
+    font-size: 1.2em;
+}
+
+.table-champs {
+    background: linear-gradient(to right, red, #ff5400) !important;
+    font-size: 1.2em;
+}
+
+.rank {
+    font-size:1.4em;
+    color: orange
+}
+
+.champ-img {
+    height: 70%;
+}
+
+.btn-invite {
+    background: linear-gradient(to right, darkblue, #2a55a3);
+    height: 60px;
+    width: 150px;
+    color:white;
+    font-weight: bold;
+    float: right;
+}
+
+.btn-invite:hover {
+    background: linear-gradient(to right, red, #ff5400);
+}
+
+.btn-join {
+    background: linear-gradient(to right, darkblue, #2a55a3);
+    height: 40px;
+    width: 120px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-join:hover {
+    background: linear-gradient(to right, red, #ff5400);
+}
+
+.btn-decline {
+    background: linear-gradient(to right, darkred, red);
+    height: 40px;
+    width: 120px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-decline:hover {
+    background: linear-gradient(to right, red, #ff5400);
+}
+
+.red {
+    color: red;
+    font-weight: bold;
+}
+
+.page {
+    display: none;
+    padding: 0 0.5em;
 }

@@ -109,7 +109,7 @@ namespace EScouting.Controllers
                         float aVision = (float)topArray[d, 5] / item.Count();
 
                         //get EP for this champ
-                        var ep = Global.GetEPoints(role.Name, aKills, aAssists, aDeaths, aMinionsKilled, aVision);
+                        var ep = Global.GetEPoints(role.Name, aKills, aAssists, aDeaths, aMinionsKilled, aVision, soloQueue);
 
                         //add it to array
                         aStats[d] = ep;

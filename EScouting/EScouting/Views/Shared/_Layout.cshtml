@@ -11,83 +11,96 @@
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Alfa Slab One' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Fontdiner Swanky' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Kumar One' rel='stylesheet'>
     @Scripts.Render("~/bundles/lib")
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                   @Html.ActionLink("Home", "Index", "Home", null, new { @class="nav-link"})
-                </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Players", "Index", "Player", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Coaches", "CoachIndex", "Player", null, new { @class = "nav-link" })
-                </li>
-            </ul>
-            <ul class="navbar-nav">
+            <a class="navbar-brand brand" href="#">EScouting Pro</a>
 
-                @if (Request.IsAuthenticated)
-                {
-                    var user = Model.Users.SingleOrDefault(u => u.Id == User.Identity.GetUserId());
-                    var invitations = Model.Invitations.Where(i => i.ToId == user.Id).ToList();
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    <li class="nav-item dropdown">
-                        <a class="dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Invitations <span class="badge badge-light">@invitations.Count</span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            @foreach (var inv in invitations)
-                            {
-
-                                var coach = Model.Users.SingleOrDefault(u => u.Id == inv.FromId);
-                                <a class="dropdown-item blue" href='@string.Format("Player/Coach/{0}", coach.Id)'> @string.Format("Coach {0} invites you to his club.", coach.Name) </a>
-                            }
-                        </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                     </li>
-                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    <li class="nav-item">
+                        @Html.ActionLink("Players", "Index", "Player", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Coaches", "CoachIndex", "Player", null, new { @class = "nav-link" })
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+
+                    @if (Request.IsAuthenticated)
                     {
-                        if (Model.Users.SingleOrDefault(u => u.Id == User.Identity.GetUserId()).UserTypeId == 1)
-                        {
-                            @Html.ActionLink(user.Name, "Details", "Player", new { id = User.Identity.GetUserId() }, new { @Class=""})
-                        }
-                        else
-                        {
-                            @Html.ActionLink(User.Identity.Name, "coach", "Player", new { id = User.Identity.GetUserId() }, null)
-                        }
+                        var user = Model.Users.SingleOrDefault(u => u.Id == User.Identity.GetUserId());
+                        var invitations = Model.Invitations.Where(i => i.ToId == user.Id).ToList();
 
-                        @Html.AntiForgeryToken()
-                        <input type="submit" value="Logout" class="btn btn-danger" />
+                        <li class="nav-item dropdown">
+
+                            @if (user.UserTypeId == 1)
+                            {
+                                <a class="dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Invitations <span class="badge badge-danger">@invitations.Count</span>
+                                </a>
+                            }
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                @foreach (var inv in invitations)
+                                {
+                                    var coach = Model.Users.SingleOrDefault(u => u.Id == inv.FromId);
+                                    <a class="dropdown-item blue" href='@string.Format("https://localhost:44352/Player/Coach/{0}", coach.Id)'> Coach <span class="red">  @string.Format("{0}", coach.Name)</span>  invites you to his club.</a>
+                                }
+                            </div>
+                        </li>
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            if (Model.Users.SingleOrDefault(u => u.Id == User.Identity.GetUserId()).UserTypeId == 1)
+                            {
+                                @Html.ActionLink("welcome " + user.Name, "Details", "Player", new { id = User.Identity.GetUserId() }, new { @Class = "" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("welcome " + user.Name, "coach", "Player", new { id = User.Identity.GetUserId() }, null)
+                            }
+
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Logout" class="btn btn-danger" />
+                        }
                     }
-                }
-                else
-                {
-                    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
-                }
+                    else
+                    {
+                        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+                    }
 
-            </ul>
+                </ul>
+            </div>
+        </nav>
+
+
+
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
         </div>
-    </nav>
-
-
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
 
     @RenderSection("scripts", required: false)
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 </html>

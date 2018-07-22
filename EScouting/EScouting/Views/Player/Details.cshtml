@@ -13,6 +13,27 @@
 else
 {
 
+
+    // we got data!
+    var color = "white";
+    var EP = Model.EP;
+    if (EP >= 2)
+    {
+        color = "white";
+    }
+    if (EP >= 4.9)
+    {
+        color = "yellow";
+    }
+    if (EP >= 6)
+    {
+        color = "orange";
+    }
+    if (EP >= 7)
+    {
+        color = "red";
+    }
+
     if (Request.IsAuthenticated)
     {
         if (!Model.Invitations.Where(u => u.FromId == User.Identity.GetUserId() && u.ToId == Model.UserId).Any())
@@ -26,20 +47,42 @@ else
                     @Html.HiddenFor(x => x.UserId);
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" class="btn btn-default" value="Invite To Club" />
+                            <input type="submit" class="btn btn-invite" value="Invite To Club" />
                         </div>
                     </div>
                 }
             }
         }
     }
-    // we got data!
-    <h2>@Model.SummonerName</h2>
-    <h2>@Model.MainRole</h2>
-    <h2>@Model.EP.ToString("#.#")</h2>
+
+    <p class="player-name">@Model.SummonerName<span class="small-span" style="color:@color">    (@Model.EP.ToString("#.#") EP)</span></p>
+
+
+
     if (Model.SoloQueue != null)
     {
-        <h2>Solo Queye: @Model.SoloQueue.Tier</h2>
+        <table class="table table-details table-hover">
+            <thead>
+                <tr>
+                    <th class="rank">Solo Ranked</th>
+                    <th>Tier</th>
+                    <th>Rank</th>
+                    <th>Points</th>
+                    <th>Wins</th>
+                    <th>Losses</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>@Model.SoloQueue.Tier</td>
+                    <td>@Model.SoloQueue.Rank</td>
+                    <td>@Model.SoloQueue.LeaguePoints</td>
+                    <td>@Model.SoloQueue.Wins</td>
+                    <td>@Model.SoloQueue.Losses</td>
+                </tr>
+            </tbody>
+        </table>
     }
     else
     {
@@ -47,11 +90,32 @@ else
     }
     if (Model.FlexQueue != null)
     {
-        <h2>Ranked Queye: @Model.FlexQueue.Tier</h2>
+        <table class="table table-details table-hover">
+            <thead>
+                <tr>
+                    <th class="rank">Flex Ranked</th>
+                    <th>Tier</th>
+                    <th>Rank</th>
+                    <th>Points</th>
+                    <th>Wins</th>
+                    <th>Losses</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>@Model.FlexQueue.Tier</td>
+                    <td>@Model.FlexQueue.Rank</td>
+                    <td>@Model.FlexQueue.LeaguePoints</td>
+                    <td>@Model.FlexQueue.Wins</td>
+                    <td>@Model.FlexQueue.Losses</td>
+                </tr>
+            </tbody>
+        </table>
     }
     else
     {
-        <h2>Flex queue rank unavailable</h2>
+        <h2 class="rank">Flex queue rank unavailable</h2>
     }
 
     // 2 dimentional array { champ id, kills, deaths, assists, minionskilled, visionScore }
@@ -67,6 +131,7 @@ else
 
     if (Model.matches.Any())
     {
+        <p class="text-center title">Top champs</p>
         foreach (var champ in Model.matches)
         {
             if (list.Where(x => x.Key == champ.ChampionId) != null)
@@ -95,16 +160,29 @@ else
             float aAssists = (float)topArray[d, 3] / item.Count();
             float aMinionsKilled = (float)topArray[d, 4] / item.Count();
             float aVision = (float)topArray[d, 5] / item.Count();
-            <p>Champ: @champ.Name</p>
-            <img src="~/Content/Images/ChampionIcons/@champImg" />
-            <p>id: @champ.Id</p>
-            <p>id: @topArray[d, 0]</p>
-            <p>count: @item.Count()</p>
-            <p>kills @aKills.ToString("#.#")</p>
-            <p>Deaths @aDeaths.ToString("#.#")</p>
-            <p>Assists @aAssists.ToString("#.#")</p>
-            <p>CS @aMinionsKilled.ToString("#.#")</p>
-            <p>Vision @aVision.ToString("#.#")</p>
+
+            <table class="table table-champs table-hover">
+                <thead>
+                    <tr>
+                        <th><img class="champ-img" src="~/Content/Images/ChampionIcons/@champImg" /></th>
+                        <th>Average Kills</th>
+                        <th>Average Deaths</th>
+                        <th>Average Assists</th>
+                        <th>Average CS</th>
+                        <th>Average Vision Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@champ.Name</td>
+                        <td>@aKills.ToString("#.#")</td>
+                        <td>@aDeaths.ToString("#.#")</td>
+                        <td>@aAssists.ToString("#.#")</td>
+                        <td>@aMinionsKilled.ToString("#.#")</td>
+                        <td>@aVision.ToString("#.#")s</td>
+                    </tr>
+                </tbody>
+            </table>
 
             d++;
         }
@@ -114,10 +192,3 @@ else
         <p>no games played</p>
     }
 }
-
-
-
-}
-@*iterate through list of top champs and gather overall stats*@
-
-

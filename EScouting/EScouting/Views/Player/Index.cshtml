@@ -2,9 +2,11 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
 
-<h2>all Players</h2>
+<p class="text-center title">All Players</p>
 
 @if (!Model.Players.Any())
 {
@@ -28,13 +30,23 @@ else
                 var country = Model.Countries.SingleOrDefault(c => c.Id == player.CountryId);
                 var region = Model.Regions.SingleOrDefault(c => c.Id == player.RegionId);
                 var role = Model.Roles.SingleOrDefault(r => r.Id == player.RoleId);
+                var color = "white";
+                var EP = @player.EPoints;
+                if (EP >= 2)
+                    color = "white";
+                if (EP >= 4.9)
+                    color = "yellow";
+                if (EP >= 6)
+                    color = "orange";
+                if (EP >= 7)
+                    color = "red";
 
                 <tr>
                     <td>@Html.ActionLink(player.Name, "Details", "Player", new { id = player.Id}, null )</td>
                     <td>@country.Name</td>
                     <td>@region.Name</td>
                     <td>@role.Name</td>
-                    <td>@player.EPoints.ToString("#.#")</td>
+                    <td class="EP" style="color:@color;">@player.EPoints.ToString("#.#")</td>
                 </tr>
             }
         </tbody>

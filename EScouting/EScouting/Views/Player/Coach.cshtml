@@ -8,11 +8,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Coach</h2>
-
-<p>Coach Name: @Model.CoachName</p>
 @if (Request.IsAuthenticated)
 {
+    <p class="blue">You have received an offer from <span class="red">@Model.CoachName</span> to join his club.</p>
     var player = Model.Users.SingleOrDefault(u => u.Id == User.Identity.GetUserId());
     if (Model.Invitations.Where(u => u.FromId == Model.CoachId && u.ToId == player.Id).Any())
     {
@@ -23,7 +21,7 @@
             @Html.HiddenFor(x => x.CoachId);
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Join Club" />
+                    <input type="submit" class="btn btn-join" value="Join Club" />
                 </div>
             </div>
         }
@@ -34,12 +32,15 @@
             @Html.HiddenFor(x => x.CoachId);
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Decline Offer" />
+                    <input type="submit" class="btn btn-decline" value="Decline Offer" />
                 </div>
             </div>
         }
     }
 }
+
+<h1>Coach Name: @Model.CoachName</h1>
+
 
 @if (!Model.HasClub)
 {

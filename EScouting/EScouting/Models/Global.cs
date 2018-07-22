@@ -246,8 +246,74 @@ namespace EScouting.Models
         }
 
         //method for calculating Epoints
-        public static float GetEPoints(string role, float kills, float assists, float deaths, float cs, float vision)
+        public static float GetEPoints(string role, float kills, float assists, float deaths, float cs, float vision, RankedStats solo)
         {
+            float soloP = 0;
+            
+            if (solo != null)
+            {
+                if (solo.Tier == "BRONZE")
+                {
+                    if (solo.Rank == "V")
+                        soloP = 0.1f;
+                    if (solo.Rank == "IV")
+                        soloP = 0.2f;
+                    if (solo.Rank == "III")
+                        soloP = 0.3f;
+                    if (solo.Rank == "II")
+                        soloP = 0.4f;
+                    if (solo.Rank == "I")
+                        soloP = 0.5f;
+                }
+                if (solo.Tier == "SILVER")
+                {
+                    if (solo.Rank == "V")
+                        soloP = 0.6f;
+                    if (solo.Rank == "IV")
+                        soloP = 0.7f;
+                    if (solo.Rank == "III")
+                        soloP = 0.8f;
+                    if (solo.Rank == "II")
+                        soloP = 0.9f;
+                    if (solo.Rank == "I")
+                        soloP = 1.0f;
+                }
+                if (solo.Tier == "GOLD")
+                {
+                    if (solo.Rank == "V")
+                        soloP = 1.1f;
+                    if (solo.Rank == "IV")
+                        soloP = 1.2f;
+                    if (solo.Rank == "III")
+                        soloP = 1.3f;
+                    if (solo.Rank == "II")
+                        soloP = 1.4f;
+                    if (solo.Rank == "I")
+                        soloP = 1.5f;
+                }
+                if (solo.Tier == "PLATINUM")
+                {
+                    if (solo.Rank == "V")
+                        soloP = 1.6f;
+                    if (solo.Rank == "IV")
+                        soloP = 1.7f;
+                    if (solo.Rank == "III")
+                        soloP = 1.8f;
+                    if (solo.Rank == "II")
+                        soloP = 1.9f;
+                    if (solo.Rank == "I")
+                        soloP = 2.0f;
+                }
+                if (solo.Tier == "MASTER")
+                {
+                    soloP = 2.5f;
+                }
+                if (solo.Tier == "CHALLENGER")
+                {
+                    soloP = 3.0f;
+                }
+            }
+
             float EP = 0;
             switch (role)
             {
@@ -255,7 +321,7 @@ namespace EScouting.Models
                     EP = ((kills * 3) + (assists * 1) + (cs/200)) / deaths; // average cs 200 per game (cs = minions killed)
                     break;
                 case "Top":
-                    EP = ((kills * 3) + (cs/200)) / deaths; // top assists are not counted
+                    EP = ((kills * 3) + (assists) + (cs/200)) / deaths; // top assists are not counted
                     break;
                 case "Jungler":
                     EP = ((kills * 3) + (assists) + (cs/120)) / deaths; // average cs 120 for junglers
@@ -269,7 +335,7 @@ namespace EScouting.Models
                 default:
                     break;
             }
-            return EP;
+            return EP+soloP;
         }
     }
 }
